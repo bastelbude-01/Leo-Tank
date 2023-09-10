@@ -9,6 +9,11 @@
             </geometry>
             <material name="orange" />
         </visual>
+        <collision>
+            <geometry>
+                <box size="0.03 0.03 0.03" />
+            </geometry>
+        </collision>
         
     </link>
 
@@ -21,6 +26,12 @@
             </geometry>
             <material name="black" />
         </visual>
+        <collision>
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 ${pi/2}"/>            
+            <geometry>
+                <cylinder radius="0.035" length="0.02" />
+            </geometry>
+        </collision>
         
     </link>
 

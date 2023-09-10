@@ -1,8 +1,6 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-    
-
     <!-- Turm Auflage-->
 
     <xacro:macro name="turret_coil" params="prefix">
@@ -13,6 +11,11 @@
                 </geometry>
                 <material name="yellow" />
             </visual>
+            <collision>
+                <geometry>
+                    <cylinder radius="0.06" length="0.005" />
+                </geometry>
+            </collision>
         </link>
     </xacro:macro>
 
@@ -28,6 +31,12 @@
             </geometry>
             <material name="white" />
         </visual>
+        <collision>
+            <geometry>
+                <box size="0.28 0.17 0.05" />
+            </geometry>
+            <material name="white" />
+        </collision>
 
     </link>
 
@@ -39,13 +48,18 @@
                 </geometry>
                 <material name="white" />
             </visual>
-
+            <collision>
+                <geometry>
+                    <box size="0.1 0.05 0.05" />
+                </geometry>
+            </collision>
+            
         </link>
     </xacro:macro>
 
-    <xacro:turm_seite prefix="r"/>
-    <xacro:turm_seite prefix="l"/>
-    
+    <xacro:turm_seite prefix="r" />
+    <xacro:turm_seite prefix="l" />
+
 
     <!-- JOINTS Turret -->
 
@@ -66,11 +80,11 @@
     <joint name="joint_3" type="revolute">
         <parent link="down_coil" />
         <child link="top_coil" />
-        <axis xyz="0 0 1"/>
-        <limit lower="-${pi*2}" upper="${pi*2}" velocity="1.0" effort="10.0"/>
-        <origin xyz="0 0 0.005" rpy="0 0 0"/>
+        <axis xyz="0 0 1" />
+        <limit lower="-${pi*2}" upper="${pi*2}" velocity="1.0" effort="10.0" />
+        <origin xyz="0 0 0.005" rpy="0 0 0" />
     </joint>
-    
+
 
     <!-- Turm_joints-->
 
@@ -91,9 +105,6 @@
         <child link="turm_top_r" />
         <origin xyz="0.17 -0.06 0.0" />
     </joint>
-
-    
-    
 
 
 </robot>

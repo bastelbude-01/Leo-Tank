@@ -25,6 +25,12 @@
             </geometry>
             <material name="black"/>
         </visual>
+        <collision>
+            <origin xyz="0.0 0.0 ${chassi_height/2}" rpy="0.0 0.0 0.0"/>
+            <geometry>
+                <box size="${chassi_length} ${chassi_width} ${chassi_height}"/>
+            </geometry>
+        </collision>
     </link>
 
     <link name="chassis_top">
@@ -35,6 +41,12 @@
             </geometry>
             <material name="black"/>
         </visual>
+        <collision>
+            <origin xyz="0.0 0.0 ${chassi_top_height/2}" rpy="0.0 0.0 0.0"/>
+            <geometry>
+                <box size="${chassi_top_length} ${chassi_top_width} ${chassi_top_height}"/>
+            </geometry>
+        </collision>
     </link>
 
 
@@ -49,6 +61,13 @@
                 </geometry>
                 <material name="white"/>
             </visual>
+            <collision>
+                <origin xyz="0.0 0.0 0.0" rpy="${pi/2} 0.0 0.0"/>
+                <geometry>
+                    <cylinder radius="${wheel_radius}" length="${wheel_length}"/>
+                </geometry>
+            </collision>
+            
         </link>
     </xacro:macro>
 

@@ -10,6 +10,11 @@
             </geometry>
             <material name="white" />
         </visual>
+        <collision>
+            <geometry>
+                <box size="0.08 0.04 0.05" />
+            </geometry>
+        </collision>
 
     </link>
 
@@ -21,6 +26,12 @@
             </geometry>
             <material name="white" />
         </visual>
+        <collision>
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 ${pi/4} 0.0" />
+            <geometry>
+                <box size="0.036 0.04 0.036" />
+            </geometry>
+        </collision>
     </link>
 
     <link name="gun_pipe">
@@ -31,6 +42,12 @@
             </geometry>
             <material name="white" />
         </visual>
+        <collision>
+            <origin xyz="0.15 0.0 0.0" rpy="0.0 ${pi/2} 0.0" />
+            <geometry>
+                <cylinder radius="0.009" length="0.3" />
+            </geometry>
+        </collision>
     </link>
 
 
