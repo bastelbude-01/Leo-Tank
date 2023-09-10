@@ -31,6 +31,8 @@
                 <box size="${chassi_length} ${chassi_width} ${chassi_height}"/>
             </geometry>
         </collision>
+        <xacro:box_inertia m="3.0" l="${chassi_length}" w="${chassi_width}" h="${chassi_height}"
+                           xyz="0.0 0.0 ${chassi_height/2}" rpy="0 0 0"/> 
     </link>
 
     <link name="chassis_top">
@@ -47,6 +49,8 @@
                 <box size="${chassi_top_length} ${chassi_top_width} ${chassi_top_height}"/>
             </geometry>
         </collision>
+        <xacro:box_inertia m="1.0" l="${chassi_top_length}" w="${chassi_top_width}" h="${chassi_top_height}"
+                           xyz="0.0 0.0 ${chassi_top_height/2}" rpy="0 0 0"/> 
     </link>
 
 
@@ -67,7 +71,8 @@
                     <cylinder radius="${wheel_radius}" length="${wheel_length}"/>
                 </geometry>
             </collision>
-            
+            <xacro:cylinder_inertia m="0.3" r="${wheel_radius}" h="${wheel_length}"
+                           xyz="0 0 0" rpy="${pi/2} 0.0 0.0"/>             
         </link>
     </xacro:macro>
 

@@ -15,7 +15,8 @@
                 <box size="0.08 0.04 0.05" />
             </geometry>
         </collision>
-
+        <xacro:box_inertia m="0.1" l="0.08" w="0.04" h="0.05"
+                           xyz="0 0 0" rpy="0 0 0"/> 
     </link>
 
     <link name="gun_deko">
@@ -32,6 +33,8 @@
                 <box size="0.036 0.04 0.036" />
             </geometry>
         </collision>
+        <xacro:box_inertia m="0.1" l="0.036" w="0.04" h="0.036"
+                           xyz="0 0 0" rpy="0.0 ${pi/4} 0.0"/> 
     </link>
 
     <link name="gun_pipe">
@@ -48,6 +51,8 @@
                 <cylinder radius="0.009" length="0.3" />
             </geometry>
         </collision>
+        <xacro:cylinder_inertia m="0.05" r="0.009" h="0.3"
+                           xyz="0.15 0.0 0.0" rpy="0.0 ${pi/2} 0.0"/> 
     </link>
 
 

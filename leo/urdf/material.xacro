@@ -38,6 +38,11 @@
                      izz="${(m/12) * (w*w + h*h)}" />
         </inertial>
     </xacro:macro>
+    <!-- 
+        <xacro:box_inertia m="" l="" w="" h=""
+                           xyz="0 0 0" rpy="0 0 0"/> 
+    -->
+
 
     <xacro:macro name="cylinder_inertia" params="m r h xyz rpy">
         <inertial>
@@ -48,6 +53,10 @@
                      izz="${(m/2) * (r*r)}" />
         </inertial>
     </xacro:macro>
+    <!-- 
+        <xacro:cylinder_inertia m="" r="" h=""
+                           xyz="0 0 0" rpy="0 0 0"/> 
+    -->
 
     <xacro:macro name="sphere_inertia" params="m r xyz rpy">
         <inertial>
@@ -58,5 +67,10 @@
                      izz="${(2/5) * m * r * r}" />
         </inertial>
     </xacro:macro>
+
+    <!-- 
+        <xacro:sphere_inertia m="" r=""
+                           xyz="0 0 0" rpy="0 0 0"/> 
+    -->
 
 </robot>
