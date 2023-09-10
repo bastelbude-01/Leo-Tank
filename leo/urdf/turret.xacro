@@ -1,0 +1,99 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    
+
+    <!-- Turm Auflage-->
+
+    <xacro:macro name="turret_coil" params="prefix">
+        <link name="${prefix}_coil">
+            <visual>
+                <geometry>
+                    <cylinder radius="0.06" length="0.005" />
+                </geometry>
+                <material name="yellow" />
+            </visual>
+        </link>
+    </xacro:macro>
+
+    <xacro:turret_coil prefix="top" />
+    <xacro:turret_coil prefix="down" />
+
+    <!-- Turm -->
+
+    <link name="turm_top_">
+        <visual>
+            <geometry>
+                <box size="0.28 0.17 0.05" />
+            </geometry>
+            <material name="white" />
+        </visual>
+
+    </link>
+
+    <xacro:macro name="turm_seite" params="prefix">
+        <link name="turm_top_${prefix}">
+            <visual>
+                <geometry>
+                    <box size="0.1 0.05 0.05" />
+                </geometry>
+                <material name="white" />
+            </visual>
+
+        </link>
+    </xacro:macro>
+
+    <xacro:turm_seite prefix="r"/>
+    <xacro:turm_seite prefix="l"/>
+    
+
+    <!-- JOINTS Turret -->
+
+    <joint name="fixirung" type="fixed">
+        <origin xyz="0.05 0.0 0.04" rpy="0.0 0.0 0.0" />
+        <parent link="chassis_top" />
+        <child link="down_coil" />
+    </joint>
+
+    <!-- change to moving if - joint für den turm 
+
+    <joint name="turret_coil_joint" type="fixed"> 
+        <origin xyz="0.0 0.0 0.005" rpy="0.0 0.0 0.0" />
+        <parent link="down_coil" />
+        <child link="top_coil" />
+    </joint>  -->
+
+    <joint name="joint_3" type="revolute">
+        <parent link="down_coil" />
+        <child link="top_coil" />
+        <axis xyz="0 0 1"/>
+        <limit lower="-${pi*2}" upper="${pi*2}" velocity="1.0" effort="10.0"/>
+        <origin xyz="0 0 0.005" rpy="0 0 0"/>
+    </joint>
+    
+
+    <!-- Turm_joints-->
+
+    <joint name="turm_top_joint" type="fixed">
+        <parent link="top_coil" />
+        <child link="turm_top_" />
+        <origin xyz="-0.08 0.0 0.025" />
+    </joint>
+
+    <joint name="turm_top_left" type="fixed">
+        <parent link="turm_top_" />
+        <child link="turm_top_l" />
+        <origin xyz="0.17 0.06 0.0" />
+    </joint>
+
+    <joint name="turm_top_right" type="fixed">
+        <parent link="turm_top_" />
+        <child link="turm_top_r" />
+        <origin xyz="0.17 -0.06 0.0" />
+    </joint>
+
+    
+    
+
+
+</robot>

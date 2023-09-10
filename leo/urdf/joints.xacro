@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+        <!-- Joints Fixed -->
+    
+        <joint name="base_link" type="fixed">
+            <parent link="base_footprint"/>
+            <child link="chassis"/>
+            <origin xyz="0.0 0.0 ${wheel_radius}" rpy="0.0 0.0 0.0"/>
+        </joint>
+    
+        <joint name="chassieAufbau" type="fixed">
+            <parent link="chassis"/>
+            <child link="chassis_top"/>
+            <origin xyz="0.0 0.0 ${chassi_height}" rpy="0.0 0.0 0.0"/>
+        </joint>
+        
+        <joint name="joint_rf" type="fixed">
+            <parent link="chassis"/>
+            <child link="right_f_wheel"/>
+            <origin xyz="${chassi_length/3} -${chassi_width/2 + wheel_length/2} 0" rpy="0 0 0"/>
+        </joint>
+        <joint name="joint_rr" type="fixed">
+            <parent link="chassis"/>
+            <child link="right_r_wheel"/>
+            <origin xyz="-${chassi_length/3} -${chassi_width/2 + wheel_length/2} 0" rpy="0 0 0"/>
+        </joint>
+    
+        <joint name="joint_lf" type="fixed">
+            <parent link="chassis"/>
+            <child link="left_f_wheel"/>
+            <origin xyz="${chassi_length/3} ${chassi_width/2 + wheel_length/2} 0" rpy="0 0 0"/>
+        </joint>
+        <joint name="joint_lr" type="fixed">
+            <parent link="chassis"/>
+            <child link="left_r_wheel"/>
+            <origin xyz="-${chassi_length/3} ${chassi_width/2 + wheel_length/2} 0" rpy="0 0 0"/>
+        </joint>
+    
+        <!-- Joints Moving-->
+    
+        <joint name="joint_1" type="continuous">
+            <parent link="chassis"/>
+            <child link="right_wheel"/>
+            <axis xyz="0 1 0"/>
+            <origin xyz="0 -${chassi_width/2 + wheel_length/2} 0" rpy="0 0 0"/>
+        </joint>
+    
+        <joint name="joint_2" type="continuous">
+            <parent link="chassis"/>
+            <child link="left_wheel"/>
+            <axis xyz="0 1 0"/>
+            <origin xyz="0 ${chassi_width/2+ wheel_length/2} 0" rpy="0 0 0"/>
+        </joint>
+    
+</robot>

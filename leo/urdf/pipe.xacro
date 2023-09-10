@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <!-- GUN -->
+
+    <link name="turm_gun">
+        <visual>
+            <geometry>
+                <box size="0.08 0.04 0.05" />
+            </geometry>
+            <material name="white" />
+        </visual>
+
+    </link>
+
+    <link name="gun_deko">
+        <visual>
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 ${pi/4} 0.0" />
+            <geometry>
+                <box size="0.036 0.04 0.036" />
+            </geometry>
+            <material name="white" />
+        </visual>
+    </link>
+
+    <link name="gun_pipe">
+        <visual>
+            <origin xyz="0.15 0.0 0.0" rpy="0.0 ${pi/2} 0.0" />
+            <geometry>
+                <cylinder radius="0.009" length="0.3" />
+            </geometry>
+            <material name="white" />
+        </visual>
+    </link>
+
+
+    <!-- Gun_joint -->
+
+    <joint name="joint_4" type="revolute">
+        <parent link="turm_top_" />
+        <child link="turm_gun" />
+        <axis xyz="0 -1 0" />
+        <limit lower="-0.05" upper="0.4" velocity="50.0" effort="1000.0" />
+        <origin xyz="0.18 0 0" rpy="0 0 0" />
+    </joint>
+
+    <joint name="gun_deko" type="fixed">
+        <parent link="turm_gun" />
+        <child link="gun_deko" />
+        <origin xyz="0.04 0.0 0.0" rpy="0.0 0.0 0.0" />
+    </joint>
+
+    <joint name="gun_rohr" type="fixed">
+        <parent link="gun_deko" />
+        <child link="gun_pipe" />
+        <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
+    </joint>
+
+</robot>
