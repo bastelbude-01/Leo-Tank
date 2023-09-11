@@ -2,16 +2,17 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="leo">
 
     <xacro:include filename="material.xacro"/>
-
+   
     <xacro:include filename="chassi.xacro"/>
     <xacro:include filename="joints.xacro"/>
+       
      
 
-    <xacro:include filename="turret.xacro"/> <!-- -->
+    <xacro:include filename="turret.xacro"/>
 
     <xacro:include filename="pipe.xacro"/>
     <xacro:include filename="lidar.xacro"/>
-    <xacro:include filename="camera.xacro"/> 
+    <xacro:include filename="camera.xacro"/>  <!-- -->
 
     
     

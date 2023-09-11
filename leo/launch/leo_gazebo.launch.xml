@@ -1,12 +1,15 @@
 <launch>
 
-    <let name="urdf_path" value="$(find-pkg-share leo)/urdf/leopard.urdf.xacro" />
+    <let name="urdf_path"
+        value="$(find-pkg-share leo)/urdf/leopard.urdf.xacro" />
 
-    <node pkg="robot_state_publisher" exec="robot_state_publisher" name="rsp">
-        <param name="robot_description" value="$(command 'xacro $(var urdf_path)')" />
+    <node pkg="robot_state_publisher" exec="robot_state_publisher">
+        <param name="robot_description"
+               value="$(command 'xacro $(var urdf_path)')" />
     </node>
-    <include file="$(find-pkg-share gazebo_ros)/launch/gazebo.launch.py " />
-
-    <node pkg="gazebo_ros" exec="spawn_entity.py"
-        args="-topic robot_description -entity leo" />
+ 
+    <include file="$(find-pkg-share gazebo_ros)/launch/gazebo.launch.py" />
+<!-- 
+    <include file="$(find-pkg-share leo)/launch/launch_spawner.launch.xml" />
+-->
 </launch>
