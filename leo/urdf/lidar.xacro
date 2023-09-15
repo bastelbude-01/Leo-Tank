@@ -17,6 +17,9 @@
         <xacro:box_inertia m="0.02" l="0.03" w="0.03" h="0.03"
                            xyz="0 0 0" rpy="0 0 0"/>        
     </link>
+    <gazebo reference="lidar_mount">
+        <material>Gazebo/Grass</material>
+    </gazebo>
 
 
     <link name="laser_frame">
@@ -36,6 +39,9 @@
         <xacro:cylinder_inertia m="0.01" r="0.035" h="0.02"
                            xyz="0 0 0" rpy="0 0 ${pi/2}"/>        
     </link>
+    <gazebo reference="laser_frame">
+        <material>Gazebo/Black</material>
+    </gazebo>
 
 
     <joint name="laser_joint" type="fixed">

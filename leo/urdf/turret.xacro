@@ -43,6 +43,9 @@
                            xyz="0 0 0" rpy="0 0 0"/> 
 
     </link>
+    <gazebo reference="turm_top_">
+        <material>Gazebo/Grass</material>
+    </gazebo>
 
     <xacro:macro name="turm_seite" params="prefix">
         <link name="turm_top_${prefix}">
@@ -58,9 +61,38 @@
                 </geometry>
             </collision>
             <xacro:box_inertia m="0.2" l="0.1" w="0.05" h="0.05"
-                           xyz="0 0 0" rpy="0 0 0"/> 
-            
+                           xyz="0 0 0" rpy="0 0 0"/>             
         </link>
+        <gazebo reference="turm_top_${prefix}">
+            <material>Gazebo/Grass</material>
+        </gazebo>
+
+        <link name="turm_deko_${prefix}">
+            <visual>
+                <origin xyz="0.0 0.0 0.0" rpy="0.0 ${pi/4} 0.0" />
+                <geometry>
+                    <box size="0.0355 0.05 0.0355" />
+                </geometry>
+                <material name="white" />
+            </visual>
+            <collision>
+                <origin xyz="0.0 0.0 0.0" rpy="0.0 ${pi/4} 0.0" />
+                <geometry>
+                    <box size="0.0355 0.05 0.0355" />
+                </geometry>
+            </collision>
+            <xacro:box_inertia m="0.1" l="0.0355" w="0.05" h="0.0355"
+                               xyz="0 0 0" rpy="0.0 ${pi/4} 0.0"/> 
+        </link>
+        <gazebo reference="turm_deko_${prefix}">
+            <material>Gazebo/Grass</material>
+        </gazebo>
+
+        <joint name="gun_deko_${prefix}" type="fixed">
+            <parent link="turm_top_${prefix}" />
+            <child link="turm_deko_${prefix}" />
+            <origin xyz="0.05 0.0 0.0" rpy="0.0 0.0 0.0" />
+        </joint>
     </xacro:macro>
 
     <xacro:turm_seite prefix="r" />

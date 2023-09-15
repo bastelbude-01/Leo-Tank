@@ -69,6 +69,16 @@ Visualization Manager:
           Alpha: 1
           Show Axes: false
           Show Trail: false
+        cam:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        cam_linse:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
         chassis:
           Alpha: 1
           Show Axes: false
@@ -79,12 +89,101 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
+        down_coil:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        gun_deko:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        gun_pipe:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        gun_pipe_tail:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        laser_frame:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        left_f_wheel:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        left_r_wheel:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
         left_wheel:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
+        leo_optic:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        lidar_mount:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        right_f_wheel:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        right_r_wheel:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
         right_wheel:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        top_coil:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        turm_deko_l:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        turm_deko_r:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        turm_gun:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        turm_top_:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        turm_top_l:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        turm_top_r:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -104,13 +203,53 @@ Visualization Manager:
         All Enabled: true
         base_footprint:
           Value: true
+        cam:
+          Value: true
+        cam_linse:
+          Value: true
         chassis:
           Value: true
         chassis_top:
           Value: true
+        down_coil:
+          Value: true
+        gun_deko:
+          Value: true
+        gun_pipe:
+          Value: true
+        gun_pipe_tail:
+          Value: true
+        laser_frame:
+          Value: true
+        left_f_wheel:
+          Value: true
+        left_r_wheel:
+          Value: true
         left_wheel:
           Value: true
+        leo_optic:
+          Value: true
+        lidar_mount:
+          Value: true
+        right_f_wheel:
+          Value: true
+        right_r_wheel:
+          Value: true
         right_wheel:
+          Value: true
+        top_coil:
+          Value: true
+        turm_deko_l:
+          Value: true
+        turm_deko_r:
+          Value: true
+        turm_gun:
+          Value: true
+        turm_top_:
+          Value: true
+        turm_top_l:
+          Value: true
+        turm_top_r:
           Value: true
       Marker Scale: 0.30000001192092896
       Name: TF
@@ -121,8 +260,37 @@ Visualization Manager:
         base_footprint:
           chassis:
             chassis_top:
+              down_coil:
+                top_coil:
+                  turm_top_:
+                    lidar_mount:
+                      laser_frame:
+                        {}
+                    turm_gun:
+                      gun_deko:
+                        gun_pipe:
+                          gun_pipe_tail:
+                            {}
+                    turm_top_l:
+                      turm_deko_l:
+                        {}
+                    turm_top_r:
+                      cam:
+                        cam_linse:
+                          {}
+                        leo_optic:
+                          {}
+                      turm_deko_r:
+                        {}
+            left_f_wheel:
+              {}
+            left_r_wheel:
               {}
             left_wheel:
+              {}
+            right_f_wheel:
+              {}
+            right_r_wheel:
               {}
             right_wheel:
               {}
@@ -189,10 +357,10 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.5453983545303345
+      Pitch: 0.47539833188056946
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 3.543578624725342
+      Yaw: 6.063602924346924
     Saved: ~
 Window Geometry:
   Displays:

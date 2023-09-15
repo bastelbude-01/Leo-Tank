@@ -37,7 +37,7 @@
                            xyz="0 0 0" rpy="0 0 0"/>        
     </link>
 
-    <link name="camera_link_optical"></link>
+    <link name="leo_optic"></link>
 
     
 
@@ -53,13 +53,13 @@
         <child link="cam_linse"/>
     </joint>
 
-    <joint name="camera_optical_joint" type="fixed">
+    <joint name="leo_optic_joint" type="fixed">
         <origin xyz="0 0.0 0.0" rpy="${-pi/2} 0.0 ${-pi/2}"/>
         <parent link="cam"/>
-        <child link="camera_link_optical"/>
+        <child link="leo_optic"/>
     </joint>
 
-    <!-- GAZEBO PLUGIN 
+    <!-- GAZEBO PLUGIN -->
 
     <gazebo reference="cam_linse">
         <material>Gazebo/Black</material>
@@ -67,7 +67,7 @@
         
     <gazebo reference="cam">
         <material>Gazebo/Orange</material>
-    
+    <!--
         <sensor name="camera" type="camera">
             <pose> 0 0 0 0 0 0 </pose>
             <visualize>true</visualize>
@@ -85,10 +85,10 @@
                 </clip>
             </camera>
             <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
-                <frame_name>camera_link_optical</frame_name>
+                <frame_name>leo_optic</frame_name>
             </plugin>
-        </sensor>
-    </gazebo> -->
+        </sensor> -->
+    </gazebo> 
 
     
 
