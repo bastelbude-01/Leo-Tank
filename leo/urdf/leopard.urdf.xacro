@@ -5,14 +5,15 @@
    
     <xacro:include filename="chassi.xacro"/>
     <xacro:include filename="joints.xacro"/>
-       
-     
 
     <xacro:include filename="turret.xacro"/>
-
     <xacro:include filename="pipe.xacro"/>
+    
     <xacro:include filename="lidar.xacro"/>
-    <xacro:include filename="camera.xacro"/>  <!-- -->
+    <xacro:include filename="camera.xacro"/>  
+
+
+    <xacro:include filename="gazebo.xacro"/>
 
     
     
