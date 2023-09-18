@@ -67,7 +67,7 @@
         
     <gazebo reference="cam">
         <material>Gazebo/Orange</material>
-    <!--
+   
         <sensor name="camera" type="camera">
             <pose> 0 0 0 0 0 0 </pose>
             <visualize>true</visualize>
@@ -87,7 +87,7 @@
             <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
                 <frame_name>leo_optic</frame_name>
             </plugin>
-        </sensor> -->
+        </sensor> 
     </gazebo> 
 
     
