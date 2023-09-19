@@ -8,6 +8,8 @@ def generate_launch_description():
 
     joy_params1 = os.path.join(get_package_share_directory("leo"), "config", "joystick.yaml")
     joy_params2 = os.path.join(get_package_share_directory("leo"), "config", "joystickTurret.yaml")
+    pkg_path = os.path.join(get_package_share_directory('leo'))
+
 
     joystick = Node(
             package='joy',
@@ -31,11 +33,20 @@ def generate_launch_description():
             remappings=[("/cmd_vel", "/leo_turret")]
         )
 
+    rviz2 = Node(
+        package="rviz2",
+        executable="rviz2",
+        name="rviz2",
+        output="screen",
+        arguments=["-d", os.path.join(pkg_path,"rviz","display_leo.rviz" )],
+    )
+
 
     return LaunchDescription([
 
         joystick,
         teleop_node1,
-        teleop_node2
+        teleop_node2,
+        rviz2
         
     ])
