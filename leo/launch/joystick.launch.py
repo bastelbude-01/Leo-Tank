@@ -1,4 +1,8 @@
 import os
+import launch
+import launch.actions
+import launch.substitutions
+import launch.actions
 from launch import LaunchDescription
 from launch_ros.actions import Node
 from ament_index_python.packages import get_package_share_directory
@@ -41,12 +45,26 @@ def generate_launch_description():
         arguments=["-d", os.path.join(pkg_path,"rviz","display_leo.rviz" )],
     )
 
+    snow_blower = Node(
+        package="rc_control",
+        executable="snowblower",
+        name="snowblower_controller"
+    )
+
+
+
 
     return LaunchDescription([
+
+        launch.actions.ExecuteProcess(
+            cmd=['ros2', 'run', 'micro_ros_agent','micro_ros_agent','udp4','--port', '8868', '--dev', '192.168.178.88'],
+            output='screen',
+        ),
 
         joystick,
         teleop_node1,
         teleop_node2,
-        rviz2
+        rviz2,
+        snow_blower
         
     ])
