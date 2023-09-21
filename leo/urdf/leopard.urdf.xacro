@@ -13,7 +13,9 @@
     <xacro:include filename="camera.xacro"/>  
 
 
-    <xacro:include filename="gazebo.xacro"/>
+  <!--  <xacro:include filename="gazebo.xacro"/> -->
+
+    <xacro:include filename="ros2_control.xacro"/>
 
     
     
