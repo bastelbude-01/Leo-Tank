@@ -87,14 +87,22 @@
 
 
     <!-- Gun_joint -->
-
+<!-- 
     <joint name="joint_4" type="revolute">
         <parent link="turm_top_" />
         <child link="turm_gun" />
         <axis xyz="0 -1 0" />
         <limit lower="-0.05" upper="0.4" velocity="50.0" effort="1000.0" />
         <origin xyz="0.18 0 0" rpy="0 0 0" />
+    </joint> -->
+
+    <joint name="joint_4" type="fixed">
+        <parent link="turm_top_" />
+        <child link="turm_gun" />
+        <origin xyz="0.18 0 0" rpy="0 0 0" />
     </joint>
+
+    
 
     <joint name="gun_deko" type="fixed">
         <parent link="turm_gun" />
