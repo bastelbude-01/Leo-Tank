@@ -3,13 +3,13 @@ controller_manager:
     update_rate: 30
     use_sim_time: true
 
-    diff_cont:
+    leo_driver:
       type: diff_drive_controller/DiffDriveController
 
     joint_broad:
       type: joint_state_broadcaster/JointStateBroadcaster
     
-diff_cont:
+leo_driver:
   ros__parameters:
 
     publish_rate: 30.0
