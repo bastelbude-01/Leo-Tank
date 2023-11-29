@@ -47,7 +47,7 @@ def generate_launch_description():
     
     robot_description = Command(['ros2 param get --hide-type /robot_state_publisher robot_description'])
 
-    controller_params_file = os.path.join(get_package_share_directory(package_name),'config','homer_controller.yaml')
+    controller_params_file = os.path.join(get_package_share_directory(package_name),'config','leo_controller.yaml')
     
     controller_manager = Node(
         package="controller_manager",
@@ -56,7 +56,7 @@ def generate_launch_description():
     )
 
     
-    delayed_controller_manager = TimerAction(period=4.0, actions=[controller_manager])
+    delayed_controller_manager = TimerAction(period=3.0, actions=[controller_manager])
 
     diff_drive_spawner = Node(
         package="controller_manager",
