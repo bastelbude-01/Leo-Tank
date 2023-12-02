@@ -1,23 +1,39 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="leo">
 
-    <xacro:include filename="material.xacro"/>
-   
-    <xacro:include filename="chassi.xacro"/>
-    <xacro:include filename="joints.xacro"/>
+  <xacro:arg name="use_ros2_control" default="true"/>
+  <xacro:arg name="sim_mode" default="false"/>
 
-    <xacro:include filename="turret.xacro"/>
-   <!--  
-    <xacro:include filename="pipe.xacro"/> 
-    
-    <xacro:include filename="lidar.xacro"/> -->
-    <xacro:include filename="camera.xacro"/>  
+  <xacro:include filename="material.xacro"/>
+
+  <xacro:include filename="chassi.xacro"/>
+  <xacro:include filename="joints.xacro"/>
+
+  <xacro:include filename="turret.xacro"/>
 
 
-  <!--  <xacro:include filename="gazebo.xacro"/> -->
 
+
+  <xacro:if value="$(arg use_ros2_control)">
     <xacro:include filename="ros2_control.xacro"/>
+  </xacro:if>
 
-    
-    
+  <xacro:unless value="$(arg use_ros2_control)">
+    <xacro:include filename="gazebo.xacro"/>
+  </xacro:unless>
+
+  <xacro:include filename="lidar.xacro"/>
+  <xacro:include filename="camera.xacro"/>
+  <!--  
+    <xacro:include filename="pipe.xacro"/> 
+    -->
+
+
+
+  <!--   -->
+
+
+
+
+
 </robot>

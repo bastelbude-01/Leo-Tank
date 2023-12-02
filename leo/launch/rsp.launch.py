@@ -21,7 +21,7 @@ def generate_launch_description():
 
 
     # Process the URDF file
-    pkg_path = os.path.join(get_package_share_directory('leo'))
+    
     # xacro_file = os.path.join(pkg_path,'urdf','leo.urdf.xacro')
     xacro_file = os.path.join(get_package_share_directory('leo'),'urdf','leopard.urdf.xacro')
     #robot_description_config = xacro.process_file(xacro_file).toxml()
@@ -37,13 +37,7 @@ def generate_launch_description():
         parameters=[params]
     )
     
-    rviz2 = Node(
-        package="rviz2",
-        executable="rviz2",
-        name="rviz2",
-        output="screen",
-        arguments=["-d", os.path.join(pkg_path,"rviz","display_leo.rviz" )],
-    )
+    
 
 
     # Launch!
@@ -57,6 +51,5 @@ def generate_launch_description():
         #    default_value='true',
         #    description='Use ros2_control if true'),
 
-        node_robot_state_publisher#,
-        #rviz2
+        node_robot_state_publisher
     ])
