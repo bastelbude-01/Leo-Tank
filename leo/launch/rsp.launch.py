@@ -57,6 +57,6 @@ def generate_launch_description():
         #    default_value='true',
         #    description='Use ros2_control if true'),
 
-        node_robot_state_publisher,
-        rviz2
+        node_robot_state_publisher#,
+        #rviz2
     ])

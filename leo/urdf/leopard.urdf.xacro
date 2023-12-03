@@ -8,6 +8,7 @@
 
   <xacro:include filename="chassi.xacro" />
   <xacro:include filename="joints.xacro" />
+  <xacro:include filename="turret.xacro" />
 
 
   <xacro:if value="$(arg use_ros2_control)">
