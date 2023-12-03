@@ -10,7 +10,7 @@ def generate_launch_description():
             output='screen',
             parameters=[{
                 'image_size': [640,480],
-                'camera_frame_id': 'leo_optic'
+                'camera_frame_id': 'camera_link_optical'
                 }]
         )
 
@@ -21,6 +21,6 @@ def generate_launch_description():
 
     return LaunchDescription([
 
-    color     
+    BW        
         
     ])
