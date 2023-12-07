@@ -55,6 +55,12 @@ def generate_launch_description():
         parameters=[{'robot_description': robot_description}, controller_params_file]
     )
 
+    engine = Node(
+        package="leo_engine",
+        executable="engine",
+        name="engine_driver"
+    )
+
     
     delayed_controller_manager = TimerAction(period=3.0, actions=[controller_manager])
 
