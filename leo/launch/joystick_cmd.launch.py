@@ -23,7 +23,7 @@ def generate_launch_description():
             executable='teleop_node',
             name='teleop_node1',
             parameters=[joy_params1],
-            #remappings=[("/cmd_vel", "/mk3_twist")]
+            remappings=[("/cmd_vel", "/mk3_stepper_twist")] # /micro_ros_arduino_twist_subscriber  , "/mk3_stepper_twist"
         )
 
 
