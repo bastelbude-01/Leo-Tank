@@ -1,0 +1,148 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <!-- Turm Auflage-->
+
+    <xacro:macro name="turret_coil" params="prefix">
+        <link name="${prefix}_coil">
+            <visual>
+                <geometry>
+                    <cylinder radius="0.06" length="0.005" />
+                </geometry>
+                <material name="yellow" />
+            </visual>
+            <collision>
+                <geometry>
+                    <cylinder radius="0.06" length="0.005" />
+                </geometry>
+            </collision>
+            <xacro:cylinder_inertia m="0.1" r="0.06" h="0.005"
+                           xyz="0 0 0" rpy="0 0 0"/> 
+        </link>
+    </xacro:macro>
+
+    <xacro:turret_coil prefix="top" />
+    <xacro:turret_coil prefix="down" />
+
+    <!-- Turm -->
+
+    <link name="turm_top_">
+        <visual>
+            <geometry>
+                <box size="0.28 0.17 0.05" />
+            </geometry>
+            <material name="white" />
+        </visual>
+        <collision>
+            <geometry>
+                <box size="0.28 0.17 0.05" />
+            </geometry>
+            <material name="white" />
+        </collision>
+        <xacro:box_inertia m="0.5" l="0.28" w="0.17" h="0.05"
+                           xyz="0 0 0" rpy="0 0 0"/> 
+
+    </link>
+    <gazebo reference="turm_top_">
+        <material>Gazebo/Grass</material>
+    </gazebo>
+
+    <xacro:macro name="turm_seite" params="prefix">
+        <link name="turm_top_${prefix}">
+            <visual>
+                <geometry>
+                    <box size="0.1 0.05 0.05" />
+                </geometry>
+                <material name="white" />
+            </visual>
+            <collision>
+                <geometry>
+                    <box size="0.1 0.05 0.05" />
+                </geometry>
+            </collision>
+            <xacro:box_inertia m="0.2" l="0.1" w="0.05" h="0.05"
+                           xyz="0 0 0" rpy="0 0 0"/>             
+        </link>
+        <gazebo reference="turm_top_${prefix}">
+            <material>Gazebo/Grass</material>
+        </gazebo>
+
+        <link name="turm_deko_${prefix}">
+            <visual>
+                <origin xyz="0.0 0.0 0.0" rpy="0.0 ${pi/4} 0.0" />
+                <geometry>
+                    <box size="0.0355 0.05 0.0355" />
+                </geometry>
+                <material name="white" />
+            </visual>
+            <collision>
+                <origin xyz="0.0 0.0 0.0" rpy="0.0 ${pi/4} 0.0" />
+                <geometry>
+                    <box size="0.0355 0.05 0.0355" />
+                </geometry>
+            </collision>
+            <xacro:box_inertia m="0.1" l="0.0355" w="0.05" h="0.0355"
+                               xyz="0 0 0" rpy="0.0 ${pi/4} 0.0"/> 
+        </link>
+        <gazebo reference="turm_deko_${prefix}">
+            <material>Gazebo/Grass</material>
+        </gazebo>
+
+        <joint name="gun_deko_${prefix}" type="fixed">
+            <parent link="turm_top_${prefix}" />
+            <child link="turm_deko_${prefix}" />
+            <origin xyz="0.05 0.0 0.0" rpy="0.0 0.0 0.0" />
+        </joint>
+    </xacro:macro>
+
+    <xacro:turm_seite prefix="r" />
+    <xacro:turm_seite prefix="l" />
+
+
+    <!-- JOINTS Turret -->
+
+    <joint name="fixirung" type="fixed">
+        <origin xyz="0.05 0.0 0.04" rpy="0.0 0.0 0.0" />
+        <parent link="chassis_top" />
+        <child link="down_coil" />
+    </joint>
+
+    <!-- change to moving if - joint für den turm 
+    <joint name="turret_coil_joint" type="fixed"> 
+        <origin xyz="0.0 0.0 0.005" rpy="0.0 0.0 0.0" />
+        <parent link="down_coil" />
+        <child link="top_coil" />
+    </joint>  -->
+
+
+    <joint name="joint_3" type="revolute">
+        <parent link="down_coil" />
+        <child link="top_coil" />
+        <axis xyz="0 0 1" />
+        <limit lower="-${pi*2}" upper="${pi*2}" velocity="1.0" effort="10.0" />
+        <origin xyz="0 0 0.005" rpy="0 0 0" />
+    </joint> 
+
+
+    <!-- Turm_joints-->
+
+    <joint name="turm_top_joint" type="fixed">
+        <parent link="top_coil" />
+        <child link="turm_top_" />
+        <origin xyz="-0.08 0.0 0.025" />
+    </joint>
+
+    <joint name="turm_top_left" type="fixed">
+        <parent link="turm_top_" />
+        <child link="turm_top_l" />
+        <origin xyz="0.17 0.06 0.0" />
+    </joint>
+
+    <joint name="turm_top_right" type="fixed">
+        <parent link="turm_top_" />
+        <child link="turm_top_r" />
+        <origin xyz="0.17 -0.06 0.0" />
+    </joint>
+
+
+</robot>
