@@ -82,5 +82,6 @@
         "/home/ros2ws/dev_ws/install/cv2cvzone/lib/python3.10/site-packages",
         "/opt/ros/humble/lib/python3.10/site-packages",
         "/opt/ros/humble/local/lib/python3.10/dist-packages"
-    ]
+    ],
+    "cmake.configureOnOpen": false
 }

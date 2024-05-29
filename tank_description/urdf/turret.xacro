@@ -19,6 +19,16 @@
             <xacro:cylinder_inertia m="0.1" r="0.06" h="0.005"
                            xyz="0 0 0" rpy="0 0 0"/> 
         </link>
+        <gazebo reference="${prefix}_coil">
+            <material>Gazebo/Black</material>
+            <mu1>100000000000000.0</mu1>
+            <mu2>100000000000000.0</mu2>
+            <kp>1000000000000.0</kp>
+            <kd>10.0</kd>
+            <minDepth>0.001</minDepth>
+            <maxVel>0.1</maxVel>
+            <fdir1>1 0 0</fdir1>
+        </gazebo>
     </xacro:macro>
 
     <xacro:turret_coil prefix="top" />
@@ -39,8 +49,8 @@
             </geometry>
             <material name="white" />
         </collision>
-        <xacro:box_inertia m="0.5" l="0.28" w="0.17" h="0.05"
-                           xyz="0 0 0" rpy="0 0 0"/> 
+        <xacro:box_inertia m="0.5" l="0.02" w="0.01" h="0.05"
+                           xyz="0.06 0 0" rpy="0 0 0"/> 
 
     </link>
     <gazebo reference="turm_top_">
@@ -60,7 +70,7 @@
                     <box size="0.1 0.05 0.05" />
                 </geometry>
             </collision>
-            <xacro:box_inertia m="0.2" l="0.1" w="0.05" h="0.05"
+            <xacro:box_inertia m="0.2" l="0.005" w="0.0025" h="0.0025"
                            xyz="0 0 0" rpy="0 0 0"/>             
         </link>
         <gazebo reference="turm_top_${prefix}">
@@ -81,7 +91,7 @@
                     <box size="0.0355 0.05 0.0355" />
                 </geometry>
             </collision>
-            <xacro:box_inertia m="0.1" l="0.0355" w="0.05" h="0.0355"
+            <xacro:box_inertia m="0.1" l="0.00355" w="0.005" h="0.00355"
                                xyz="0 0 0" rpy="0.0 ${pi/4} 0.0"/> 
         </link>
         <gazebo reference="turm_deko_${prefix}">
@@ -115,11 +125,10 @@
     </joint>  -->
 
 
-    <joint name="joint_3" type="revolute">
+    <joint name="joint_3" type="continuous">
         <parent link="down_coil" />
         <child link="top_coil" />
         <axis xyz="0 0 1" />
-        <limit lower="-${pi*2}" upper="${pi*2}" velocity="1.0" effort="10.0" />
         <origin xyz="0 0 0.005" rpy="0 0 0" />
     </joint> 
 

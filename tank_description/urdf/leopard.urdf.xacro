@@ -2,14 +2,23 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="leopard">  
 
   <xacro:include filename="material.xacro" />
-
-  <xacro:include filename="chassi.xacro" />  
-  <xacro:include filename="turret.xacro" />
-    
-  <xacro:include filename="pipe.xacro"/> 
   
-<!-- 
+  <!--  Chassis Turm und Rohr -->
+  <xacro:include filename="chassi.xacro" />  
+  <xacro:include filename="turret.xacro" />    
+  <xacro:include filename="pipe.xacro"/> 
+
+  <!-- Lidar und Camera
   <xacro:include filename="lidar.xacro" />
   <xacro:include filename="camera.xacro" />
 -->
+
+  <!-- Gazebo und Ros2 Control-->
+  <xacro:include filename="leopard_gazebo.xacro"/>
+  
+  <xacro:include filename="leopard_ros2_control.xacro"/>
+
+  
+  
+
 </robot>
