@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-    <ros2_control type="system" name="RobotSystem">
+    <ros2_control type="system" name="PanzerSystem">
 <!-- 
         <xacro:if value="$(arg is_sim)">
             <hardware>
@@ -83,7 +83,6 @@
                 <parma name="max">1</parma>
             </command_interface>
             <state_interface name="position" />
-            <state_interface name="velocity" />
         </joint>
 
         <joint name="joint_4"> 
@@ -92,7 +91,6 @@
                 <parma name="max">0.4</parma>
             </command_interface>
             <state_interface name="position" />
-            <state_interface name="velocity" />
         </joint>
  
         <joint name="joint_lf">
