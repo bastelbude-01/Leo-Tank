@@ -23,11 +23,7 @@ simple_velocity_controller:
   ros__parameters:
     joints:
       - joint_1
-      - joint_rf_mimic
-      - joint_rr_mimic
-      - joint_2      
-      - joint_lf_mimic
-      - joint_lr_mimic
+      - joint_2
       
       
 
