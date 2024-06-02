@@ -50,8 +50,8 @@ class TurretController(Node):
     def turretCallback(self, msg):
         turm_speed = np.array([[msg.twist.linear.x],
                                [msg.twist.angular.z]])
-        coil_speed = turret_speed[0, 0]    
-        gun_speed = turret_speed[1, 0]
+        coil_speed = turm_speed[1, 0]    
+        gun_speed = turm_speed[0, 0]
 
         turret_speed = np.matmul(np.linalg.inv(
             self.turret_conversion_), coil_speed)
