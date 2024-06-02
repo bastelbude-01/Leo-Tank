@@ -9,17 +9,17 @@ def generate_launch_description():
 
     use_python_arg = DeclareLaunchArgument(
         "use_python",
-        default_value="False"
+        default_value="True"
     )
 
     wheel_radius_arg = DeclareLaunchArgument(
         "wheel_radius",
-        default_value="0.033"
+        default_value="0.035"
     )
 
     wheel_seperation_arg = DeclareLaunchArgument(
         "wheel_seperation",
-        default_value="0.17"
+        default_value="0.163"
     )
 
     use_simple_controller_arg = DeclareLaunchArgument(
@@ -62,22 +62,38 @@ def generate_launch_description():
                 package="controller_manager",
                 executable="spawner",
                 arguments=[
-                    "simple_velocity_controller",
+                    "tank_speed_controller",
                     "--controller-manager",
                     "/controller_manager"
                 ]
             ),
 
             Node(
-                package="bumperbot_controller",
-                executable="simple_speed_controller.py",
+                package="controller_manager",
+                executable="spawner",
+                arguments=[
+                    "turret_controller",
+                    "--controller-manager",
+                    "/controller_manager"
+                ]
+            ),
+
+            Node(
+                package="tank_controller",
+                executable="tank_speed_controller.py",
                 parameters=[{"wheel_radius": wheel_radius},
                             {"wheel_seperation": wheel_seperation}],
                 condition=IfCondition(use_python)
             ),
 
             Node(
-                package="bumperbot_controller",
+                package="tank_controller",
+                executable="turret_speed_controller.py",
+                condition=IfCondition(use_python)
+            ),
+
+            Node(
+                package="tank_controller",
                 executable="simple_controller",
                 parameters=[{"wheel_radius": wheel_radius},
                             {"wheel_seperation": wheel_seperation}],
@@ -92,7 +108,7 @@ def generate_launch_description():
         wheel_radius_arg,
         wheel_seperation_arg,
         use_simple_controller_arg,
-        #wheel_controller_spawner,
+        wheel_controller_spawner,
         joint_state_broadcaster_spawner,
         simple_controller,
 

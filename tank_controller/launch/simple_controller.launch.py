@@ -13,11 +13,11 @@ def generate_launch_description():
         ]
     )
 
-    simple_controller =  Node(
+    speed_controller =  Node(
                 package="controller_manager",
                 executable="spawner",
                 arguments=[
-                    "simple_velocity_controller",
+                    "tank_speed_controller",
                     "--controller-manager",
                     "/controller_manager"
                 ]
@@ -46,7 +46,7 @@ def generate_launch_description():
 
     return LaunchDescription([
         joint_state_broadcaster_spawner,
-        simple_controller,
+        speed_controller,
         turret_controller#,
         #pipe_controller
     ])
