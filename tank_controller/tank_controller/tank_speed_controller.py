@@ -33,8 +33,7 @@ class TankController(Node):
             Float64MultiArray, "tank_speed_controller/commands", 10)
         
         self.velocity_sub_ = self.create_subscription(
-            TwistStamped, "tank_controller/cmd_vel", self.velocityCallback, 10)
-        
+            TwistStamped, "tank_controller/cmd_vel", self.velocityCallback, 10)        
 
         self.joint_sub_ = self.create_subscription(
             JointState, "joint_states", self.jointCallback, 10)
@@ -76,7 +75,7 @@ class TankController(Node):
         angular = (self.wheel_radius_ * fi_right -
                    self.wheel_radius_ * fi_left) / self.wheel_seperation_
 
-        self.get_logger().info("Linear: %f , Angular: %f" % (linear, angular))
+        #self.get_logger().info("Linear: %f , Angular: %f" % (linear, angular))
 
 
 def main():

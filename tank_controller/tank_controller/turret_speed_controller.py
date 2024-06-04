@@ -15,53 +15,55 @@ class TurretController(Node):
 
         self.declare_parameter("coil_radius", 0.06)
         self.declare_parameter("coil_seperation", 0.045)
-
         self.declare_parameter("pipe_radius", 0.04)
         self.declare_parameter("pipe_seperation", 0.26)
 
-                
-        self.coil_radius = self.get_parameter(
-            "coil_radius").get_parameter_value().double_value
-        self.coil_seperation = self.get_parameter(
-            "coil_seperation").get_parameter_value().double_value
-        self.pipe_radius = self.get_parameter(
-            "pipe_radius").get_parameter_value().double_value
-        self.pipe_seperation = self.get_parameter(
-            "pipe_seperation").get_parameter_value().double_value
+        self.coil_radius = self.get_parameter("coil_radius").get_parameter_value().double_value
+        self.coil_seperation = self.get_parameter("coil_seperation").get_parameter_value().double_value
+        self.pipe_radius = self.get_parameter("pipe_radius").get_parameter_value().double_value
+        self.pipe_seperation = self.get_parameter("pipe_seperation").get_parameter_value().double_value
 
         self.coil_prev_pos_ = 0.0
         self.pipe_prev_pos_ = 0.0
 
         self.prev_time_ = self.get_clock().now()
 
-        self.turret_cmd_pub_ = self.create_publisher(
-            Float64MultiArray, "turret_controller/commands", 10)
-     
-        self.turret_cmd_sub_ = self.create_subscription(
-            TwistStamped, "turret_controller/cmd_vel", self.turretCallback, 10)
+        self.turret_cmd_pub_ = self.create_publisher(Float64MultiArray, "turret_controller/commands", 10)
+        self.turret_cmd_sub_ = self.create_subscription(TwistStamped, "turret_controller/cmd_vel", self.turretCallback, 10)
+        self.joint_sub_ = self.create_subscription(JointState, "joint_states", self.jointCallback, 10)
 
-        self.joint_sub_ = self.create_subscription(
-            JointState, "joint_states", self.jointCallback, 10)
+        self.turret_conversion_ = self.coil_radius / self.coil_seperation
+        self.pipe_conversion_ = self.pipe_radius / self.pipe_seperation
 
-        self.turret_conversion_ = self.coil_radius/self.coil_seperation
-        self.pipe_conversion_ = self.pipe_radius/self.pipe_seperation
-
+        self.coil_point = 0.0
+        self.pipe_point = 0.0
 
     def turretCallback(self, msg):
-        turm_speed = np.array([[msg.twist.linear.x],
-                               [msg.twist.angular.z]])
-        coil_speed = turm_speed[1, 0]    
+        turm_speed = np.array([[msg.twist.linear.x], [msg.twist.angular.z]])
+        coil_speed = turm_speed[1, 0]
         gun_speed = turm_speed[0, 0]
 
-        turret_speed = np.matmul(np.linalg.inv(
-            self.turret_conversion_), coil_speed)
+        if abs(coil_speed) > 0.2:
+            self.coil_point += 0.01
+            turret_speed = self.turret_conversion_ / self.coil_point
+        elif abs(coil_speed) < -0.2:
+            self.coil_point -= 0.01
+            turret_speed = self.turret_conversion_ / self.coil_point
+        else:
+            turret_speed = 0.0  
 
-        pipe_speed = np.matmul(np.linalg.inv(
-            self.pipe_conversion_), gun_speed)
+        if abs(gun_speed) > 0.2:
+            self.pipe_point += 0.1
+            pipe_speed = self.pipe_conversion_ / self.pipe_point     
+        if abs(gun_speed) < -0.2:
+            self.pipe_point -= 0.1
+            pipe_speed = self.pipe_conversion_ / self.pipe_point        
+        else:
+            pipe_speed = 0.0
 
         turret_msg = Float64MultiArray()
-        turret_msg.data = [turret_speed[1, 0], pipe_speed[0, 0]]
-        self.wheel_cmd_pub_.publish(turret_msg)
+        turret_msg.data = [turret_speed, pipe_speed]
+        self.turret_cmd_pub_.publish(turret_msg)
 
     def jointCallback(self, msg):
         dp_coil = msg.position[2] - self.coil_prev_pos_
