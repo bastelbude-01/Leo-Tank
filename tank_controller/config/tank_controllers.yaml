@@ -9,14 +9,20 @@ controller_manager:
     tank_speed_controller:
       type: velocity_controllers/JointGroupVelocityController
 
-    chassis_controller:
-      type: diff_drive_controller/DiffDriveController
-
     turret_controller:
       type: forward_command_controller/ForwardCommandController #joint_trajectory_controller/JointTrajectoryController
 
     pipe_controller:
       type: forward_command_controller/ForwardCommandController
+
+
+    chassis_controller:
+      type: diff_drive_controller/DiffDriveController
+
+    turm_controller:
+      type: diff_drive_controller/DiffDriveController
+
+    
 
 
 tank_speed_controller:
@@ -25,7 +31,31 @@ tank_speed_controller:
       - joint_1
       - joint_2
       
+
+turret_controller:
+  ros__parameters:
+    joints:
+      - joint_3
+      - joint_4 # deaktivieren bei nutzung des pipe_controllers
+
+    interface_name: position
       
+
+    # command_interfaces:
+    #   - position
+
+    # state_interfaces:
+    #   - position
+
+    # open_loop_control: true
+    # allow_integration_in_goal_trajectories: true
+
+pipe_controller:
+  ros__parameters:
+    joints:
+      - joint_4
+
+    interface_name: position
 
 
 
@@ -72,27 +102,44 @@ chassis_controller:
         min_acceleration: -1.5
         has_jerk_limits: false
 
-turret_controller:
+turm_controller:
   ros__parameters:
-    joints:
-      - joint_3
-      - joint_4 # deaktivieren bei nutzung des pipe_controllers
+    type: diff_drive_controller/DiffDriveController
+    use_stamped_vel: true
+    left_wheel_names: ['joint_3']
+    right_wheel_names: ['joint_4']
+    publish_rate: 50.0
+    #pose_covariance_diagonal: [0.001, 0.001, 1.0e-3 ,1.0e-3, 0.01]
+    #twist_convariace_diagonal: [0.001, 0.001, 1.0e-3 ,1.0e-3, 0.01]
 
-    interface_name: position
-      
+    wheel_radius: 0.06
+    wheel_separation: 0.163
+    left_wheel_radius_multiplier: 1.0
+    right_wheel_radius_multiplier: 1.0
+    wheel_separation_multiplier: 1.0
 
-    # command_interfaces:
-    #   - position
+    cmd_vel_timeout: 0.25
+    base_frame_id: base_footprint
+    publish_limited_velocity: true
+    publish_wheel_data: true
+    enable_odom_tf: true
 
-    # state_interfaces:
-    #   - position
+    linear:
+      x:
+        has_velocity_limits: true
+        max_velocity: 0.2
+        min_velocity: -0.2
+        has_acceleration_limitis: true
+        max_acceleration: 0.4
+        min_acceleration: -0.2
+        has_jerk_limits: false
 
-    # open_loop_control: true
-    # allow_integration_in_goal_trajectories: true
-
-pipe_controller:
-  ros__parameters:
-    joints:
-      - joint_4
-
-    interface_name: position
+    angular:
+      z:
+        has_velocity_limits: true
+        max_velocity: 0.5
+        min_velocity: -0.5
+        has_acceleration_limitis: true
+        max_acceleration: 0.3
+        min_acceleration: -0.3
+        has_jerk_limits: false

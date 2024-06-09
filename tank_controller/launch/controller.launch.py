@@ -24,7 +24,7 @@ def generate_launch_description():
 
     use_simple_controller_arg = DeclareLaunchArgument(
         "use_simple_controller",
-        default_value="True"
+        default_value="False"
     )
 
     use_python = LaunchConfiguration("use_python")
@@ -46,7 +46,19 @@ def generate_launch_description():
         package="controller_manager",
         executable="spawner",
         arguments=[
-            "tank_controller",
+            "chassis_controller",
+            "--controller-manager",
+            "/controller_manager"
+        ],
+        condition=UnlessCondition(use_simple_controller)
+
+    )
+
+    turret_controller_spawner = Node(
+        package="controller_manager",
+        executable="spawner",
+        arguments=[
+            "turm_controller",
             "--controller-manager",
             "/controller_manager"
         ],
@@ -111,5 +123,6 @@ def generate_launch_description():
         wheel_controller_spawner,
         joint_state_broadcaster_spawner,
         simple_controller,
+        turret_controller_spawner
 
     ])
