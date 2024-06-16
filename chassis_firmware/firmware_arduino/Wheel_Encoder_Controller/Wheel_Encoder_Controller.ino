@@ -4,12 +4,12 @@
 installiere auf dem Raspberry in der Arduino IDE die library PID by Brett Beauregard
 */
 
-#define L298_enA 11
+#define L298_enA 11 // links
 #define L298_in1 12
 #define L298_in2 13
 #define L298_in3 7
 #define L298_in4 8
-#define L298_enB 9
+#define L298_enB 9  // rechts
 
 #define right_encoder_a 3
 #define right_encoder_b 5
@@ -204,11 +204,11 @@ void rightEncoderCallback()
   right_encoder_counter++;
   if (digitalRead(right_encoder_b) == HIGH)
   {
-    right_encoder_sing = "p";
+    right_encoder_sing = "n";
   }
   else
   {
-    right_encoder_sing = "n";
+    right_encoder_sing = "p";
   }
   
 }
@@ -218,11 +218,11 @@ void leftEncoderCallback()
   left_encoder_counter++;
   if (digitalRead(left_encoder_b) == HIGH)
   {
-    left_encoder_sing = "n";
+    left_encoder_sing = "p";
   }
   else
   {
-    left_encoder_sing = "p";
+    left_encoder_sing = "n";
   }
   
 }
