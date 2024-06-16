@@ -1,5 +1,8 @@
 
 #include <PID_v1.h>
+/*
+installiere auf dem Raspberry in der Arduino IDE die library PID by Brett Beauregard
+*/
 
 #define L298_enA 11
 #define L298_in1 12
@@ -27,6 +30,7 @@ bool is_left_wheel_cmd = "false";
 
 char value[] = "00.00";
 uint8_t value_idx = 0;
+
 bool is_cmd_complete = "false";
 
 bool is_right_wheel_forward = "true";
@@ -164,8 +168,9 @@ void loop()
   unsigned long current_millis = millis();
   if(current_millis - last_millis >= interval)
   {
-    right_wheel_meas_vel = (10 * right_encoder_counter * (60 / 385)) * 0.10472;
-    left_wheel_meas_vel = (10 * left_encoder_counter * (60 / 385)) * 0.10472;
+    right_wheel_meas_vel = (10 * right_encoder_counter * (60 / 473)) * 0.10472; // 385 alter wert bzw für die motoren mit intigrierten encoder
+    left_wheel_meas_vel = (10 * left_encoder_counter * (60 / 473)) * 0.10472;  //  473 aktueller wert für Panzer Getriebe
+
     rightMotor.Compute();
     leftMotor.Compute();
 
@@ -182,6 +187,7 @@ void loop()
     String encoder_read = "r" + right_encoder_sing + String(right_wheel_meas_vel) 
                         + ",l" + left_encoder_sing + String(left_wheel_meas_vel)+ ",";
     Serial.println(encoder_read);
+
     last_millis = current_millis;
     right_encoder_counter = 0;
     left_encoder_counter = 0;
@@ -189,14 +195,13 @@ void loop()
     analogWrite(L298_enA, right_wheel_cmd);
     analogWrite(L298_enB, left_wheel_cmd);
     
-  }
-
-  
+  }  
   
 }
 
 void rightEncoderCallback()
 {
+  right_encoder_counter++;
   if (digitalRead(right_encoder_b) == HIGH)
   {
     right_encoder_sing = "p";
@@ -205,11 +210,12 @@ void rightEncoderCallback()
   {
     right_encoder_sing = "n";
   }
-  right_encoder_counter++;
+  
 }
 
 void leftEncoderCallback()
 {
+  left_encoder_counter++;
   if (digitalRead(left_encoder_b) == HIGH)
   {
     left_encoder_sing = "n";
@@ -218,5 +224,5 @@ void leftEncoderCallback()
   {
     left_encoder_sing = "p";
   }
-  left_encoder_counter++;
+  
 }
