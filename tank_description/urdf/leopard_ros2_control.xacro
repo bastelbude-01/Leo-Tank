@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-    <ros2_control type="system" name="PanzerSystem">
+    <ros2_control type="system" name="Chassis_System">
  
         <xacro:if value="$(arg is_sim)">
             <hardware>
@@ -14,8 +14,7 @@
                 <plugin>chassis_firmware/ChassisInterface</plugin>
                 <param name="port">/dev/ttyUSB0</param>
             </hardware>
-        </xacro:unless>
-   
+        </xacro:unless>   
 
         <joint name="joint_1">
             <command_interface name="velocity">
@@ -34,7 +33,25 @@
             <state_interface name="position" />
             <state_interface name="velocity" />
         </joint>
+
+    </ros2_control>
 <!-- 
+    <ros2_control type="system" name="Turret_System">
+ 
+        <xacro:if value="$(arg is_sim)">
+            <hardware>
+                <plugin>gazebo_ros2_control/GazeboSystem</plugin>
+            </hardware>            
+        </xacro:if>
+
+        <xacro:unless value="$(arg is_sim)">
+            <hardware>
+                <plugin>turret_firmware/TurretInterface</plugin>
+                <param name="port">/dev/ttyUSB1</param>
+            </hardware>
+        </xacro:unless>
+
+
         <joint name="joint_3">
             <command_interface name="velocity">
                 <parma name="min">-1</parma>
@@ -44,15 +61,15 @@
             <state_interface name="velocity" />
         </joint>
 
-        <joint name="joint_4"> 
+        <joint name="joint_4">
             <command_interface name="velocity">
-                <parma name="min">-0.05</parma>
-                <parma name="max">0.4</parma>
+                <parma name="min">-1</parma>
+                <parma name="max">1</parma>
             </command_interface>
             <state_interface name="position" />
             <state_interface name="velocity" />
         </joint>
-    -->
-    </ros2_control>
+
+    </ros2_control> -->
 
 </robot>
