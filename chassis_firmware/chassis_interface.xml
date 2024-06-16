@@ -1,0 +1,10 @@
+<library path="chassis_firmware">
+    <class name="chassis_firmware/ChassisInterface" 
+           type ="chassis_firmware::ChassisInterface" 
+           base_class_type = "hardware_interface::SystemInterface" >
+        <description>
+            Chassis hardware interface
+            Interface for two wheels or chain
+        </description>
+    </class>
+</library>

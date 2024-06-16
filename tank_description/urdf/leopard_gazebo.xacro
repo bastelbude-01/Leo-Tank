@@ -22,27 +22,6 @@
         </joint>
     </transmission>
 
-    <transmission name="turret_transmission" >
-        <plugin>
-            transmission_interface/SimpleTransmission
-        </plugin>
-        <actuator name="turret_motor" role="actuator_turret" />
-        <joint name="joint_3" role="joint_rotate" >
-            <mechanical_reduction>1.0</mechanical_reduction>
-        </joint>
-    </transmission>
-
-    <transmission name="pipe_transmission" >
-        <plugin>
-            transmission_interface/SimpleTransmission
-        </plugin>
-        <actuator name="pipe_motor" role="actuator_pipe" />
-        <joint name="joint_4" role="joint_lift" >
-            <mechanical_reduction>1.0</mechanical_reduction>
-        </joint>
-    </transmission>
-
-
     <gazebo>
         <plugin filename="libgazebo_ros2_control.so" name="gazebo_ros2_control">
             <robot_param>robot_description</robot_param>
