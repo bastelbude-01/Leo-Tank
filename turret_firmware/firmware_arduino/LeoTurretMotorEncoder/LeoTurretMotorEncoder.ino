@@ -24,7 +24,7 @@ void setup() {
   Serial.begin(115200);
 
   pinMode(encoder_phaseB, INPUT);
-  attachInterrupt(digitalPinToInterrupt(encoder_phaseA), rightEncoderCallback, RISING);
+  attachInterrupt(digitalPinToInterrupt(encoder_phaseA), turretEncoderCallback, RISING);
 }
 
 void loop() {
@@ -37,14 +37,14 @@ void loop() {
                                               // 20  -  516000
   tower_meas_vel = (10 * tower_counter * (60.0 / 516000 )) * 0.10472; // 25839  -  23890  -  1/2 11297
   
-  String encoder_read = "r" + tower_sign + String(tower_meas_vel);
+  String encoder_read = "g" + tower_sign + String(tower_meas_vel);
   Serial.println(encoder_counter_);
   Serial.println(encoder_read);
   tower_counter = 0;
   delay(100);
 }
 
-void rightEncoderCallback()
+void turretEncoderCallback()
 {
   tower_counter++;
   if(digitalRead(encoder_phaseB) == HIGH)
