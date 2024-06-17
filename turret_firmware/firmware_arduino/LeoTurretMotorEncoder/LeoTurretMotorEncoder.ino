@@ -1,10 +1,10 @@
 // L298N H-Bridge Connection PINs
-#define L298N_enA 9  // PWM
+#define L298N_enA 11  // PWM
 #define L298N_in2 13  // Dir Motor A
 #define L298N_in1 12  // Dir Motor A
 
-#define encoder_phaseA 3  // Interrupt 
-#define encoder_phaseB 5  
+#define encoder_phaseA 2  // Interrupt 
+#define encoder_phaseB 4  
 
 unsigned int tower_counter = 0;
 String tower_sign = "p";
