@@ -125,7 +125,7 @@ namespace turret_firmware
             while(std::getline(ss, res, ','))
             {
                 multiplier = res.at(1) == 'p' ? 1 : -1;
-                if(res.at(0) == 'g')
+                if(res.at(0) == 't')
                 {
                     velocity_states_.at(2) = multiplier * std::stod(res.substr(2, res.size()));
                 }
@@ -152,7 +152,7 @@ namespace turret_firmware
         }
         
 
-        message_stream << std::fixed << std::setprecision(2) << "r" << turret_sign << compensate_zeros_turret << std::abs(velocity_commands_.at(2)) << ",";
+        message_stream << std::fixed << std::setprecision(2) << "t" << turret_sign << compensate_zeros_turret << std::abs(velocity_commands_.at(2)) << ",";
 
         try
         {
