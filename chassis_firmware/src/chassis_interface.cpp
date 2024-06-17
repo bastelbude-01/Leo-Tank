@@ -42,7 +42,7 @@ namespace chassis_firmware
         }
 
         velocity_commands_.reserve(info_.joints.size());
-        position_states_.reserve(info_.joints.size());
+        position_state_.reserve(info_.joints.size());
         velocity_states_.reserve(info_.joints.size());
 
         return CallbackReturn::SUCCESS;
@@ -54,7 +54,7 @@ namespace chassis_firmware
         for (size_t i = 0; i < info_.joints.size(); i++)
         {
             state_interfaces.emplace_back(hardware_interface::StateInterface(info_.joints[i].name,
-                                                                             hardware_interface::HW_IF_POSITION, &position_states_[i]));
+                                                                             hardware_interface::HW_IF_POSITION, &position_state_[i]));
 
             state_interfaces.emplace_back(hardware_interface::StateInterface(info_.joints[i].name,
                                                                              hardware_interface::HW_IF_VELOCITY, &velocity_states_[i]));
