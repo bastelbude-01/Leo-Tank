@@ -61,6 +61,12 @@ def generate_launch_description():
         name="engine_driver"
     )
 
+    turret = Node(
+        package="leo_turret",
+        executable="turret",
+        name="leo_turret"
+    )
+
     
     delayed_controller_manager = TimerAction(period=3.0, actions=[controller_manager])
 
@@ -98,6 +104,8 @@ def generate_launch_description():
         # camera,
         # joystick,
         # lidar,
+        engine,
+        turret,
         delayed_controller_manager,
         delayed_diff_drive_spawner,
         delayed_joint_broad_spawner
