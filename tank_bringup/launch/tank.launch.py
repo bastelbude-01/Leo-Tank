@@ -7,9 +7,17 @@ from ament_index_python.packages import get_package_share_directory
 def generate_launch_description():
     
 
-    hardware_interface = IncludeLaunchDescription(
+    hardware_interface_chassis = IncludeLaunchDescription(
         os.path.join(
             get_package_share_directory("chassis_firmware"),  
+            "launch",                                           
+            "hardware_interface.launch.py"                     
+        )
+    )
+
+    hardware_interface_turret = IncludeLaunchDescription(
+        os.path.join(
+            get_package_share_directory("turret_firmware"),  
             "launch",                                           
             "hardware_interface.launch.py"                     
         )
@@ -29,7 +37,8 @@ def generate_launch_description():
 
 
     return LaunchDescription([
-        hardware_interface,
+        hardware_interface_chassis,
+        hardware_interface_turret,
         controller
 
 

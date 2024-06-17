@@ -122,7 +122,7 @@ def generate_launch_description():
         use_simple_controller_arg,
         wheel_controller_spawner,
         joint_state_broadcaster_spawner,
-        simple_controller#,
-        #turret_controller_spawner
+        simple_controller,
+        turret_controller_spawner
 
     ])

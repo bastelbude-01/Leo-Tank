@@ -1,0 +1,10 @@
+<library path="turret_firmware">
+    <class name="turret_firmware/ChassisInterface" 
+           type ="turret_firmware::ChassisInterface" 
+           base_class_type = "hardware_interface::SystemInterface" >
+        <description>
+            Turret hardware interface
+            Interface for one motor with encoder for the turret movement
+        </description>
+    </class>
+</library>
