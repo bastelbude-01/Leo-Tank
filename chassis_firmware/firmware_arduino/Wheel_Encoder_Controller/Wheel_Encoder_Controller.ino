@@ -4,12 +4,12 @@
 installiere auf dem Raspberry in der Arduino IDE die library PID by Brett Beauregard
 */
 
-#define L298_enA 11 // links
-#define L298_in1 12
-#define L298_in2 13
-#define L298_in3 7
-#define L298_in4 8
-#define L298_enB 9  // rechts
+#define L298_enA 9  // 11 // links
+#define L298_in1 7  // 12
+#define L298_in2 8  // 13
+#define L298_in3 12 // 7
+#define L298_in4 13 // 8
+#define L298_enB 11 // 9  // rechts
 
 #define right_encoder_a 3
 #define right_encoder_b 5
