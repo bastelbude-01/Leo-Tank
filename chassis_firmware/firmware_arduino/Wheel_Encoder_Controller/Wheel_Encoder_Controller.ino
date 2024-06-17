@@ -94,56 +94,61 @@ void loop()
   if (Serial.available())
   {
     char chr = Serial.read();
-    if (chr == 'r')
+    // Right Wheel Motor
+    if(chr == 'r')
     {
       is_right_wheel_cmd = true;
       is_left_wheel_cmd = false;
       value_idx = 0;
       is_cmd_complete = false;
     }
-    else if (chr == 'l')
+    // Left Wheel Mo tor
+    else if(chr == 'l')
     {
       is_right_wheel_cmd = false;
       is_left_wheel_cmd = true;
       value_idx = 0;
     }
-    else if (chr == 'p')
+    // Positive direction
+    else if(chr == 'p')
     {
-      if (is_right_wheel_cmd && !is_right_wheel_forward)
+      if(is_right_wheel_cmd && !is_right_wheel_forward)
       {
           digitalWrite(L298_in1, HIGH - digitalRead(L298_in1));
           digitalWrite(L298_in2, HIGH - digitalRead(L298_in2));  
-          is_right_wheel_forward = true ;
+          is_right_wheel_forward = true;
       }
       else if (is_left_wheel_cmd && !is_left_wheel_forward)
       {
           digitalWrite(L298_in3, HIGH - digitalRead(L298_in3));
           digitalWrite(L298_in4, HIGH - digitalRead(L298_in4));  
-          is_left_wheel_forward = true ;
+          is_left_wheel_forward = true;
       }
     }
-    else if (chr == "n")
+    // Negative direction
+    else if(chr == 'n')
     {
-      if (is_right_wheel_cmd && is_right_wheel_forward)
+      if(is_right_wheel_cmd && is_right_wheel_forward)
       {
         digitalWrite(L298_in1, HIGH - digitalRead(L298_in1));
         digitalWrite(L298_in2, HIGH - digitalRead(L298_in2));
         is_right_wheel_forward = false;
       }
-      else if (is_left_wheel_cmd && is_left_wheel_forward)
+      else if(is_left_wheel_cmd && is_left_wheel_forward)
       {
         digitalWrite(L298_in3, HIGH - digitalRead(L298_in3));
         digitalWrite(L298_in4, HIGH - digitalRead(L298_in4));
         is_left_wheel_forward = false;
       }
     }
-    else if (chr == ",")
+    // Separator
+    else if(chr == ',')
     {
-      if (is_right_wheel_cmd)
+      if(is_right_wheel_cmd)
       {
         right_wheel_cmd_vel = atof(value);
       }
-      else if (is_left_wheel_cmd)
+      else if(is_left_wheel_cmd)
       {
         left_wheel_cmd_vel = atof(value);
         is_cmd_complete = true;
@@ -158,7 +163,7 @@ void loop()
     }
     else
     {
-      if(value_idx<5)
+      if(value_idx < 5)
       {
         value[value_idx] = chr;
         value_idx++;  
@@ -185,7 +190,7 @@ void loop()
     
   
     String encoder_read = "r" + right_encoder_sing + String(right_wheel_meas_vel) 
-                        + ",l" + left_encoder_sing + String(left_wheel_meas_vel)+ ",";
+                        + ",l" + left_encoder_sing + String(left_wheel_meas_vel) + ",";
     Serial.println(encoder_read);
 
     last_millis = current_millis;
@@ -201,7 +206,7 @@ void loop()
 
 void rightEncoderCallback()
 {
-  right_encoder_counter++;
+
   if (digitalRead(right_encoder_b) == HIGH)
   {
     right_encoder_sing = "n";
@@ -210,12 +215,12 @@ void rightEncoderCallback()
   {
     right_encoder_sing = "p";
   }
-  
+  right_encoder_counter++;
 }
 
 void leftEncoderCallback()
 {
-  left_encoder_counter++;
+  
   if (digitalRead(left_encoder_b) == HIGH)
   {
     left_encoder_sing = "p";
@@ -224,5 +229,5 @@ void leftEncoderCallback()
   {
     left_encoder_sing = "n";
   }
-  
+  left_encoder_counter++;
 }

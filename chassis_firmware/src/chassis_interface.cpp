@@ -1,5 +1,6 @@
 #include "chassis_firmware/chassis_interface.hpp"
 #include <hardware_interface/types/hardware_interface_type_values.hpp>
+#include <pluginlib/class_list_macros.hpp>
 
 namespace chassis_firmware
 {
@@ -41,7 +42,7 @@ namespace chassis_firmware
         }
 
         velocity_commands_.reserve(info_.joints.size());
-        position_state_.reserve(info_.joints.size());
+        position_states_.reserve(info_.joints.size());
         velocity_states_.reserve(info_.joints.size());
 
         return CallbackReturn::SUCCESS;
@@ -53,7 +54,7 @@ namespace chassis_firmware
         for (size_t i = 0; i < info_.joints.size(); i++)
         {
             state_interfaces.emplace_back(hardware_interface::StateInterface(info_.joints[i].name,
-                                                                             hardware_interface::HW_IF_POSITION, &position_state_[i]));
+                                                                             hardware_interface::HW_IF_POSITION, &position_states_[i]));
 
             state_interfaces.emplace_back(hardware_interface::StateInterface(info_.joints[i].name,
                                                                              hardware_interface::HW_IF_VELOCITY, &velocity_states_[i]));
@@ -124,14 +125,14 @@ namespace chassis_firmware
             std::stringstream ss(message);
             std::string res;
             int multiplier = 1;
-            while (std::getline(ss, res, ','))
+            while(std::getline(ss, res, ','))
             {
                 multiplier = res.at(1) == 'p' ? 1 : -1;
-                if (res.at(0) == 'r')
+                if(res.at(0) == 'r')
                 {
                     velocity_states_.at(0) = multiplier * std::stod(res.substr(2, res.size()));
                 }
-                else if (res.at(0) == 'l')
+                else if(res.at(0) == 'l')
                 {
                     velocity_states_.at(1) = multiplier * std::stod(res.substr(2, res.size()));
                 }
@@ -149,7 +150,7 @@ namespace chassis_firmware
         std::string compensate_zeros_right = "";
         std::string compensate_zeros_left = "";
 
-        if (std::abs(velocity_commands_.at(0)) < 10)
+        if(std::abs(velocity_commands_.at(0)) < 10.0)
         {
             compensate_zeros_right = "0";
         }
@@ -157,7 +158,7 @@ namespace chassis_firmware
         {
             compensate_zeros_right = "";
         }
-        if (std::abs(velocity_commands_.at(1)) < 10)
+        if(std::abs(velocity_commands_.at(1)) < 10.0)
         {
             compensate_zeros_left = "0";
         }
@@ -167,7 +168,7 @@ namespace chassis_firmware
         }
 
         message_stream << std::fixed << std::setprecision(2) << "r" << right_wheel_sign << compensate_zeros_right << std::abs(velocity_commands_.at(0))
-                       << ",l" << right_wheel_sign << compensate_zeros_left << std::abs(velocity_commands_.at(1)) << ",";
+                       << ",l" << left_wheel_sign << compensate_zeros_left << std::abs(velocity_commands_.at(1)) << ",";
 
         try
         {
