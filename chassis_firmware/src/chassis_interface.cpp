@@ -75,7 +75,7 @@ namespace chassis_firmware
 
     CallbackReturn ChassisInterface::on_activate(const rclcpp_lifecycle::State &previous_state)
     {
-        RCLCPP_INFO(rclcpp::get_logger("ChassisInterface"), "--> Starte Roboter Hardware <--");
+        RCLCPP_INFO(rclcpp::get_logger("ChassisInterface"), "--> Starte Roboter Chassis Hardware <--");
         velocity_commands_ = {0.0,
                               0.0};
 
@@ -95,13 +95,13 @@ namespace chassis_firmware
             RCLCPP_FATAL_STREAM(rclcpp::get_logger("ChassisInterface"), "Komunikation zum Port Fehlgeschlagen in on_activate() " << port_);
             return CallbackReturn::FAILURE;
         }
-        RCLCPP_INFO(rclcpp::get_logger("ChassisInterface"), "--> Hardware wurde gestartet und wartet auf Befehle <--");
+        RCLCPP_INFO(rclcpp::get_logger("ChassisInterface"), "--> Hardware Chassis wurde gestartet und wartet auf Befehle <--");
         return CallbackReturn::SUCCESS;
     }
 
     CallbackReturn ChassisInterface::on_deactivate(const rclcpp_lifecycle::State &previous_state)
     {
-        RCLCPP_INFO(rclcpp::get_logger("ChassisInterface"), "--> Verbindung zur Hardware wurde beendet!  <--");
+        RCLCPP_INFO(rclcpp::get_logger("ChassisInterface"), "--> Verbindung zur Chassis Hardware wurde beendet!  <--");
         if (arduino_.IsOpen())
         {
             try
@@ -177,7 +177,7 @@ namespace chassis_firmware
         }
         catch (...)
         {
-            RCLCPP_ERROR_STREAM(rclcpp::get_logger("ChassisInterface"), "--> Komunikation mit dem Arduino wurde Unterbrochen  !! <-- " << message_stream.str() << " auf dem Port: " << port_);
+            RCLCPP_ERROR_STREAM(rclcpp::get_logger("ChassisInterface"), "--> Komunikation mit dem Chassis Arduino wurde Unterbrochen  !! <-- " << message_stream.str() << " auf dem Port: " << port_);
             return hardware_interface::return_type::ERROR;
         }
         return hardware_interface::return_type::OK;

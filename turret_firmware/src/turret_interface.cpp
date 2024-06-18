@@ -75,7 +75,7 @@ namespace turret_firmware
 
     CallbackReturn TurretInterface::on_activate(const rclcpp_lifecycle::State &previous_state)
     {
-        RCLCPP_INFO(rclcpp::get_logger("TurretInterface"), "--> Starte Roboter Hardware <--");
+        RCLCPP_INFO(rclcpp::get_logger("TurretInterface"), "--> Starte Roboter Turret Hardware <--");
         velocity_commands_ = {0.0};
 
         position_state_ = {0.0};
@@ -92,13 +92,13 @@ namespace turret_firmware
             RCLCPP_FATAL_STREAM(rclcpp::get_logger("TurretInterface"), "Komunikation zum Port Fehlgeschlagen in on_activate() " << port_);
             return CallbackReturn::FAILURE;
         }
-        RCLCPP_INFO(rclcpp::get_logger("TurretInterface"), "--> Hardware wurde gestartet und wartet auf Befehle <--");
+        RCLCPP_INFO(rclcpp::get_logger("TurretInterface"), "--> Hardware Turret wurde gestartet und wartet auf Befehle <--");
         return CallbackReturn::SUCCESS;
     }
 
     CallbackReturn TurretInterface::on_deactivate(const rclcpp_lifecycle::State &previous_state)
     {
-        RCLCPP_INFO(rclcpp::get_logger("TurretInterface"), "--> Verbindung zur Hardware wurde beendet!  <--");
+        RCLCPP_INFO(rclcpp::get_logger("TurretInterface"), "--> Verbindung zur Turret Hardware wurde beendet!  <--");
         if (arduino_.IsOpen())
         {
             try
@@ -127,7 +127,7 @@ namespace turret_firmware
                 multiplier = res.at(1) == 'p' ? 1 : -1;
                 if(res.at(0) == 't')
                 {
-                    velocity_states_.at(2) = multiplier * std::stod(res.substr(2, res.size()));
+                    velocity_states_.at(0) = multiplier * std::stod(res.substr(2, res.size()));
                 }
                 
             }
@@ -139,10 +139,10 @@ namespace turret_firmware
     hardware_interface::return_type TurretInterface::write(const rclcpp::Time &time, const rclcpp::Duration &period)
     {
         std::stringstream message_stream;
-        char turret_sign = velocity_commands_.at(2) >= 0 ? 'p' : 'n';
+        char turret_sign = velocity_commands_.at(0) >= 0 ? 'p' : 'n';
         std::string compensate_zeros_turret = "";
 
-        if(std::abs(velocity_commands_.at(2)) < 10.0)
+        if(std::abs(velocity_commands_.at(0)) < 10.0)
         {
             compensate_zeros_turret = "0";
         }
@@ -152,7 +152,7 @@ namespace turret_firmware
         }
         
 
-        message_stream << std::fixed << std::setprecision(2) << "t" << turret_sign << compensate_zeros_turret << std::abs(velocity_commands_.at(2)) << ",";
+        message_stream << std::fixed << std::setprecision(1) << "t" << turret_sign << compensate_zeros_turret << std::abs(velocity_commands_.at(0)) << ",";
 
         try
         {
@@ -161,7 +161,7 @@ namespace turret_firmware
         }
         catch (...)
         {
-            RCLCPP_ERROR_STREAM(rclcpp::get_logger("TurretInterface"), "--> Komunikation mit dem Arduino wurde Unterbrochen  !! <-- " << message_stream.str() << " auf dem Port: " << port_);
+            RCLCPP_ERROR_STREAM(rclcpp::get_logger("TurretInterface"), "--> Komunikation mit dem Turret Arduino wurde Unterbrochen  !! <-- " << message_stream.str() << " auf dem Port: " << port_);
             return hardware_interface::return_type::ERROR;
         }
         return hardware_interface::return_type::OK;
