@@ -14,6 +14,15 @@ def generate_launch_description():
         )
     )
 
+    rviz = IncludeLaunchDescription(
+        os.path.join(
+            get_package_share_directory("tank_description"),
+            "launch",
+            "display.launch.py"
+        )
+    )
+
     return LaunchDescription([
-        joystick
+        joystick,
+        rviz
     ])
