@@ -10,7 +10,7 @@ controller_manager:
       type: velocity_controllers/JointGroupVelocityController
 
     turret_controller:
-      type: forward_command_controller/ForwardCommandController #joint_trajectory_controller/JointTrajectoryController
+      type: joint_trajectory_controller/JointTrajectoryController # forward_command_controller/ForwardCommandController #
 
     pipe_controller:
       type: forward_command_controller/ForwardCommandController
@@ -36,19 +36,19 @@ turret_controller:
   ros__parameters:
     joints:
       - joint_3
-      - joint_4 # deaktivieren bei nutzung des pipe_controllers
+      #- joint_4 # deaktivieren bei nutzung des pipe_controllers
 
-    interface_name: position
+    #interface_name: position
       
 
-    # command_interfaces:
-    #   - position
+    command_interfaces:
+      - velocity
 
-    # state_interfaces:
-    #   - position
+    state_interfaces:
+      - position
 
-    # open_loop_control: true
-    # allow_integration_in_goal_trajectories: true
+    open_loop_control: true
+    allow_integration_in_goal_trajectories: true
 
 pipe_controller:
   ros__parameters:
@@ -107,7 +107,7 @@ turm_controller:
     type: diff_drive_controller/DiffDriveController
     use_stamped_vel: true
     left_wheel_names: ['joint_3']
-    #right_wheel_names: ['joint_4']
+    right_wheel_names: ['joint_4']
     publish_rate: 50.0
     #pose_covariance_diagonal: [0.001, 0.001, 1.0e-3 ,1.0e-3, 0.01]
     #twist_convariace_diagonal: [0.001, 0.001, 1.0e-3 ,1.0e-3, 0.01]
@@ -124,15 +124,15 @@ turm_controller:
     publish_wheel_data: true
     enable_odom_tf: true
 
-    #linear:
-    #  x:
-    #    has_velocity_limits: true
-    #    max_velocity: 0.2
-    #    min_velocity: -0.2
-    #    has_acceleration_limitis: true
-    #    max_acceleration: 0.4
-    #    min_acceleration: -0.2
-    #    has_jerk_limits: false
+    linear:
+      x:
+        has_velocity_limits: true
+        max_velocity: 0.2
+        min_velocity: -0.2
+        has_acceleration_limitis: true
+        max_acceleration: 0.4
+        min_acceleration: -0.2
+        has_jerk_limits: false
 
     angular:
       z:
