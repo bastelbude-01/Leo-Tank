@@ -38,7 +38,7 @@ def generate_launch_description():
 
     return LaunchDescription([
         controller,
-        #hardware_interface_chassis,
+        hardware_interface_chassis,
         hardware_interface_turret
         
 
