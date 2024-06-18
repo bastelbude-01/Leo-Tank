@@ -118,7 +118,7 @@ void loop()
   unsigned long current_millis = millis();
   if(current_millis - last_millis >= interval)
   {
-    turret_wheel_meas_vel = (10 * turret_encoder_counter * (60 / 473)) * 0.10472;
+    turret_wheel_meas_vel = (10 * turret_encoder_counter * (60 / 516000)) * 0.10472;
 
     turretMotor.Compute();
 

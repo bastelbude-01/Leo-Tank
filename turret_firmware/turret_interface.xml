@@ -1,6 +1,6 @@
 <library path="turret_firmware">
-    <class name="turret_firmware/ChassisInterface" 
-           type ="turret_firmware::ChassisInterface" 
+    <class name="turret_firmware/TurretInterface" 
+           type ="turret_firmware::TurretInterface" 
            base_class_type = "hardware_interface::SystemInterface" >
         <description>
             Turret hardware interface
