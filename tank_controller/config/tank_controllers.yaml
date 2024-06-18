@@ -36,7 +36,7 @@ turret_controller:
   ros__parameters:
     joints:
       - joint_3
-      #- joint_4 # deaktivieren bei nutzung des pipe_controllers
+      - joint_4 # deaktivieren bei nutzung des pipe_controllers
 
     #interface_name: position
       

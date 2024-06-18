@@ -18,11 +18,21 @@ def generate_launch_description():
         os.path.join(
             get_package_share_directory("tank_description"),
             "launch",
-            "display.launch.py"
+            "display_rviz.launch.py"
+        )
+    )   
+
+    gazebo = IncludeLaunchDescription(
+        os.path.join(
+            get_package_share_directory("tank_description"),  # package
+            "launch",                                         # ordner
+            "gazebo.launch.py"                                # file
         )
     )
 
+
     return LaunchDescription([
         joystick,
-        rviz
+        rviz,
+        gazebo
     ])

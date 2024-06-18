@@ -66,6 +66,11 @@ def generate_launch_description():
 
     )
 
+    turm_control = Node(
+                package="tank_controller",
+                executable="turret_speed_controller.py"
+            ),
+
     simple_controller = GroupAction(
         condition=IfCondition(use_simple_controller),
         actions=[
@@ -123,6 +128,7 @@ def generate_launch_description():
         wheel_controller_spawner,
         joint_state_broadcaster_spawner,
         simple_controller,
+        turm_control,
         turret_controller_spawner
 
     ])
