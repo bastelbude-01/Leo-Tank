@@ -25,8 +25,8 @@ void loop()
 {
 
     sensor.getMotion6(&ax, &ay, &az, &gx, &gy, &gz);
-    ax = map(ax, -17000, 17000, 0, 180);
-    ax_ = map(ax, 0, 180, 60, 130);
+    ax = map(ax, -17000, 17000, 0, 270);
+    ax_ = map(ax, 0, 270, 165, 105);
     Serial.println(ax_);
     pipe.write(ax_);
     delay(15);
