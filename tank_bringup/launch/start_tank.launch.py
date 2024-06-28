@@ -59,8 +59,8 @@ def generate_launch_description():
     return LaunchDescription([
         controller,
         delayed_controller_manager,
-        delayed_chassis_spawner,
-        delayed_turret_spawner
+        delayed_chassis_spawner#,
+        #delayed_turret_spawner
 
 
     ])

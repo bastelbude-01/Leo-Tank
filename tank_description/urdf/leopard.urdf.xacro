@@ -7,8 +7,10 @@
   
   <!--  Chassis Turm und Rohr -->
   <xacro:include filename="chassi.xacro" />  
+  <!-- 
   <xacro:include filename="turret.xacro" />    
   <xacro:include filename="pipe.xacro"/> 
+-->
 
   <!-- Lidar und Camera
   <xacro:include filename="lidar.xacro" />
