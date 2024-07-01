@@ -1,0 +1,10 @@
+<library path="pipe_controller">
+    <class name="pipe_controller/PipeInterface"
+            type="pipe_controller::PipeInterface"
+            base_class_type="hardware_interface::SystemInterface">
+    <description>
+        Pipe Hardware Interface
+    </description>
+
+    </class>
+</library>

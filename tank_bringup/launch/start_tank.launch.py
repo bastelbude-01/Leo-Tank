@@ -55,6 +55,21 @@ def generate_launch_description():
         )
     )
 
+    hardware_interface_pipe = IncludeLaunchDescription(
+        os.path.join(
+            get_package_share_directory("pipe_firmware"),  
+            "launch",                                           
+            "hardware_interface.launch.py"                     
+        )
+    )
+
+    delayed_pipe_spawner = RegisterEventHandler(
+        event_handler=OnProcessStart(
+            target_action=controller,
+            on_start=[hardware_interface_pipe],
+        )
+    )
+
 
     return LaunchDescription([
         controller,

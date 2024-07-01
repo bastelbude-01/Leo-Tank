@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.8)
-project(tank_firmware)
+project(pipe_firmware)
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
@@ -18,8 +18,9 @@ pkg_check_modules(SERIAL libserial)
 
 
 add_library(${PROJECT_NAME} SHARED
-  src/tank_interface.cpp
+  src/pipe_interface.cpp
 )
+
 
 target_include_directories(${PROJECT_NAME} PRIVATE
   include
@@ -35,8 +36,7 @@ ament_target_dependencies(${PROJECT_NAME}
   rclcpp_lifecycle
 )
 
-pluginlib_export_plugin_description_file(hardware_interface tank_interface.xml)
-
+pluginlib_export_plugin_description_file(hardware_interface pipe_controller.xml)
 
 install( 
   TARGETS ${PROJECT_NAME}
@@ -47,10 +47,10 @@ install(
   DESTINATION include
 )
 
-#install(
-#  DIRECTORY launch
-#  DESTINATION share/${PROJECT_NAME}
-#)
+install(
+  DIRECTORY launch
+  DESTINATION share/${PROJECT_NAME}
+)
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
