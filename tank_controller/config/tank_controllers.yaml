@@ -10,7 +10,7 @@ controller_manager:
       type: velocity_controllers/JointGroupVelocityController
 
     turret_controller:
-      type: joint_trajectory_controller/JointTrajectoryController # forward_command_controller/ForwardCommandController #
+      type:  forward_command_controller/ForwardCommandController # joint_trajectory_controller/JointTrajectoryController #
 
     pipe_controller:
       type: joint_trajectory_controller/JointTrajectoryController # forward_command_controller/ForwardCommandController #
@@ -37,17 +37,17 @@ turret_controller:
     joints:
       - joint_3
 
-    #interface_name: position
+    interface_name: position
       
 
-    command_interfaces:
-      - velocity
+    #command_interfaces:
+    #  - velocity
 
     state_interfaces:
       - position
 
-    open_loop_control: true
-    allow_integration_in_goal_trajectories: true
+    #open_loop_control: true
+    #allow_integration_in_goal_trajectories: true
 
 pipe_controller:
   ros__parameters:

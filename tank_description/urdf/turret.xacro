@@ -117,13 +117,6 @@
         <child link="down_coil" />
     </joint>
 
-    <!-- change to moving if - joint für den turm 
-    <joint name="turret_coil_joint" type="fixed"> 
-        <origin xyz="0.0 0.0 0.005" rpy="0.0 0.0 0.0" />
-        <parent link="down_coil" />
-        <child link="top_coil" />
-    </joint>  -->
-
 
     <joint name="joint_3" type="continuous">
         <parent link="down_coil" />

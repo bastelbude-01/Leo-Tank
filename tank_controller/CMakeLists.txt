@@ -44,6 +44,7 @@ install(
 install(PROGRAMS
   ${PROJECT_NAME}/tank_speed_controller.py
   ${PROJECT_NAME}/turret_speed_controller.py
+  ${PROJECT_NAME}/turret_controller.py
   DESTINATION lib/${PROJECT_NAME}  
 )
 

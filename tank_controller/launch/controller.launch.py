@@ -58,7 +58,7 @@ def generate_launch_description():
         package="controller_manager",
         executable="spawner",
         arguments=[
-            "turm_controller",
+            "turret_controller",
             "--controller-manager",
             "/controller_manager"
         ],
@@ -68,7 +68,7 @@ def generate_launch_description():
 
     turm_control = Node(
                 package="tank_controller",
-                executable="turret_speed_controller.py"
+                executable="turret_controller.py"
             ),
 
     simple_controller = GroupAction(
@@ -127,8 +127,8 @@ def generate_launch_description():
         use_simple_controller_arg,
         wheel_controller_spawner,
         joint_state_broadcaster_spawner,
-        simple_controller#,
+        simple_controller,
         #turm_control,
-        #turret_controller_spawner
+        turret_controller_spawner
 
     ])
