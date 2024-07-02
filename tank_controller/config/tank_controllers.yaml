@@ -36,6 +36,7 @@ turret_position_controller:
 
     state_interfaces:
       - position
+      
 
 
 tank_speed_controller:
@@ -58,6 +59,7 @@ turret_controller:
 
     state_interfaces:
       - position
+      - velocity
 
     open_loop_control: true
     allow_integration_in_goal_trajectories: true
