@@ -23,7 +23,7 @@ controller_manager:
       type: diff_drive_controller/DiffDriveController
 
     turret_position_controller:
-      type: position_controllers/JointGroupsPositionController
+      type: position_controllers/JointGroupPositionController
 
     
 turret_position_controller:
