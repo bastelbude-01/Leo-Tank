@@ -22,7 +22,14 @@ controller_manager:
     turm_controller:
       type: diff_drive_controller/DiffDriveController
 
+    turret_position_controller:
+      type: position_controller/JointGroupsPositionController
+
     
+turret_position_controller:
+  ros__parameters:
+    joints:
+      - joint_3
 
 
 tank_speed_controller:
