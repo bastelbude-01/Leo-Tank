@@ -23,13 +23,19 @@ controller_manager:
       type: diff_drive_controller/DiffDriveController
 
     turret_position_controller:
-      type: position_controllers/JointGroupPositionController
-
+      #type: position_controllers/JointGroupPositionController
+      type: velocity_controllers/JointGroupVelocityController
     
 turret_position_controller:
   ros__parameters:
     joints:
       - joint_3
+
+    command_interfaces:
+      - velocity
+
+    state_interfaces:
+      - position
 
 
 tank_speed_controller:
