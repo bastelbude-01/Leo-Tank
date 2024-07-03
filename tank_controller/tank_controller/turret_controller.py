@@ -46,7 +46,7 @@ class TurretController(Node):
 
         
         turret_msg = Float64MultiArray()
-        turret_msg.data = [turret_speed]
+        turret_msg.data = [turret_speed, 0.0]
         self.turret_cmd_pub_.publish(turret_msg)
 
     def jointCallback(self, msg):
