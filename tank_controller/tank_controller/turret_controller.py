@@ -33,7 +33,7 @@ class TurretController(Node):
 
     def turretCallback(self, msg):
         turm_speed = np.array([[msg.twist.linear.x]])
-        coil_speed = turm_speed[1, 0]
+        coil_speed = turm_speed[0]
 
         if abs(coil_speed) > 0.2:
             self.coil_point += 0.01

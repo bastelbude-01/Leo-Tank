@@ -9,7 +9,7 @@ controller_manager:
     tank_speed_controller:
       type: velocity_controllers/JointGroupVelocityController
 
-    turret_controller:
+    turret1_controller:
       type:  joint_trajectory_controller/JointTrajectoryController # forward_command_controller/ForwardCommandController # 
 
     pipe_controller:
@@ -22,10 +22,10 @@ controller_manager:
     turm_controller:
       type: diff_drive_controller/DiffDriveController
 
-    turret_velocity_controller:
+    turret_controller:
       type: velocity_controllers/JointGroupVelocityController
     
-turret_velocity_controller:
+turret_controller:
   ros__parameters:
     joints:
       - joint_3
@@ -45,7 +45,7 @@ tank_speed_controller:
       - joint_2
       
 
-turret_controller:
+turret1_controller:
   ros__parameters:
     joints:
       - joint_3

@@ -17,7 +17,7 @@ def generate_launch_description():
                 package="controller_manager",
                 executable="spawner",
                 arguments=[
-                    "tank_speed_controller",
+                    "chassis_controller",
                     "--controller-manager",
                     "/controller_manager"
                 ]

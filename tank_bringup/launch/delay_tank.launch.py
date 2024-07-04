@@ -37,12 +37,12 @@ def generate_launch_description():
         os.path.join(
             get_package_share_directory("tank_controller"),  
             "launch",                                             
-            "controller.launch.py"                                
-        ),
-        launch_arguments={
-            "use_simple_controller": "false",
-            "use_python": "False"
-        }.items()
+            "simple_controller.launch.py"                                
+        )#,
+        #launch_arguments={
+        #    "use_simple_controller": "false",
+        #    "use_python": "False"
+        #}.items()
     )
 
 
