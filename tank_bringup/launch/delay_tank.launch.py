@@ -2,9 +2,20 @@ from launch import LaunchDescription
 from launch.actions import IncludeLaunchDescription, TimerAction
 import os
 from ament_index_python.packages import get_package_share_directory
+from launch_ros.actions import Node
 
 
 def generate_launch_description():
+
+    joint_state_broadcaster_spawner = Node(
+        package="controller_manager",
+        executable="spawner",
+        arguments=[
+            "joint_state_broadcaster",
+            "--controller-manager",
+            "/controller_manager"
+        ]
+    )
     
 
     hardware_interface_chassis = IncludeLaunchDescription(
@@ -46,6 +57,7 @@ def generate_launch_description():
 
     return LaunchDescription([
         controller,
+        joint_state_broadcaster_spawner,
         TimerAction(period=5.0, actions=[hardware_interface_chassis]),
         TimerAction(period=5.0, actions=[hardware_interface_turret])#,
         #TimerAction(period=5.0, actions=[hardware_interface_pipe])

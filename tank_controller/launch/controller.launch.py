@@ -126,8 +126,8 @@ def generate_launch_description():
         wheel_seperation_arg,
         use_simple_controller_arg,
         wheel_controller_spawner,
-        joint_state_broadcaster_spawner,
-        simple_controller,
+        #joint_state_broadcaster_spawner,
+        #simple_controller,
         turm_control,
         turret_controller_spawner
 
