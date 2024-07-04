@@ -32,7 +32,7 @@ class TurretController(Node):
         self.coil_point = 0.0
 
     def turretCallback(self, msg):
-        turm_speed = np.array([[msg.twist.linear.x], [msg.twist.angular.z]])
+        turm_speed = np.array([[msg.twist.linear.x]])
         coil_speed = turm_speed[1, 0]
 
         if abs(coil_speed) > 0.2:
@@ -46,7 +46,7 @@ class TurretController(Node):
 
         
         turret_msg = Float64MultiArray()
-        turret_msg.data = [turret_speed, 0.0]
+        turret_msg.data = [turret_speed]
         self.turret_cmd_pub_.publish(turret_msg)
 
     def jointCallback(self, msg):
