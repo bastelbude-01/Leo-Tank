@@ -4,9 +4,9 @@
 installiere auf dem Raspberry in der Arduino IDE die library PID by Brett Beauregard
 */
 
-#define L298_enA 11 // Turm Motor
-#define L298_in1 12
-#define L298_in2 13
+#define L298_enA 9 // Turm Motor
+#define L298_in1 8
+#define L298_in2 7
 
 #define turret_encoder_a 2
 #define turret_encoder_b 4
