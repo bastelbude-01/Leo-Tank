@@ -37,20 +37,16 @@ def generate_launch_description():
         os.path.join(
             get_package_share_directory("tank_controller"),  
             "launch",                                             
-            "simple_controller.launch.py"                                
-        )#,
-        #launch_arguments={
-        #    "use_simple_controller": "false",
-        #    "use_python": "False"
-        #}.items()
+            "turret_controller.launch.py"                                
+        )
     )
 
 
     return LaunchDescription([
         controller,
-        TimerAction(period=5.0, actions=[hardware_interface_chassis]),
-        TimerAction(period=5.0, actions=[hardware_interface_turret])#,
-        #TimerAction(period=5.0, actions=[hardware_interface_pipe])
+        TimerAction(period=3.0, actions=[hardware_interface_chassis]),
+        TimerAction(period=3.0, actions=[hardware_interface_turret])#,
+        #TimerAction(period=3.0, actions=[hardware_interface_pipe])
         
 
 

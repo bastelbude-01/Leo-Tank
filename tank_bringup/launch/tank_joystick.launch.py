@@ -22,17 +22,10 @@ def generate_launch_description():
         )
     )   
 
-    gazebo = IncludeLaunchDescription(
-        os.path.join(
-            get_package_share_directory("tank_description"),  # package
-            "launch",                                         # ordner
-            "gazebo.launch.py"                                # file
-        )
-    )
+    
 
 
     return LaunchDescription([
         joystick,
-        rviz,
-        gazebo
+        rviz
     ])
