@@ -33,6 +33,11 @@ def generate_launch_description():
                 ]
             )
     
+    turm_control = Node(
+                package="tank_controller",
+                executable="turret_controller.py"
+            )
+    
     pipe_controller =  Node(
                 package="controller_manager",
                 executable="spawner",
@@ -47,6 +52,7 @@ def generate_launch_description():
     return LaunchDescription([
         joint_state_broadcaster_spawner,
         speed_controller,
+        turm_control,
         turret_controller#,
         #pipe_controller
     ])

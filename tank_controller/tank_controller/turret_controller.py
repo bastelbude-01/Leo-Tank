@@ -38,15 +38,16 @@ class TurretController(Node):
         turm_speed = np.array([[msg.twist.linear.x], [msg.twist.angular.z]])
         coil_speed = turm_speed[1,0]
 
-        if abs(coil_speed) >= 0.2:
+        if coil_speed >= 0.2:
             self.coil_point += 0.01
             turret_speed = self.turret_conversion_ / self.coil_point
-        elif abs(coil_speed) <= -0.2:
+        elif coil_speed <= -0.2:
             self.coil_point -= 0.01
             turret_speed = self.turret_conversion_ / self.coil_point
         else:
             turret_speed = 0.0  
 
+        self.get_logger().info("Coil Speed %f" % coil_speed)
         self.get_logger().info("Turret Speed %f" % turret_speed)
         self.get_logger().info("Coil Point %f" % self.coil_point)
 
