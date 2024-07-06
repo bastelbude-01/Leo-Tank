@@ -58,7 +58,7 @@ def generate_launch_description():
         package="controller_manager",
         executable="spawner",
         arguments=[
-            "turret_velocity_controller",
+            "turret_controller",
             "--controller-manager",
             "/controller_manager"
         ],
