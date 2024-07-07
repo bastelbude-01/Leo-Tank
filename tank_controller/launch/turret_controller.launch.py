@@ -52,7 +52,7 @@ def generate_launch_description():
     return LaunchDescription([
         joint_state_broadcaster_spawner,
         speed_controller,
-        turm_control,
+        #turm_control,
         turret_controller#,
         #pipe_controller
     ])

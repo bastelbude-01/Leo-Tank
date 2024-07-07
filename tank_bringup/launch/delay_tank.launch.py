@@ -40,10 +40,18 @@ def generate_launch_description():
             "turret_controller.launch.py"                                
         )
     )
+    controller_interface = IncludeLaunchDescription(
+        os.path.join(
+            get_package_share_directory("tank_bringup"),  
+            "launch",                                             
+            "delay_controller.launch.py"                                
+        )
+    )
 
 
     return LaunchDescription([
         controller,
+        controller_interface,
         TimerAction(period=3.0, actions=[hardware_interface_chassis]),
         TimerAction(period=3.0, actions=[hardware_interface_turret])#,
         #TimerAction(period=3.0, actions=[hardware_interface_pipe])
