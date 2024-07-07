@@ -6,16 +6,19 @@ from launch_ros.actions import Node
 
 
 def generate_launch_description():
-    turm_control = Node(
-            package="tank_controller",
-            executable="turret_controller.py"
-    ),
 
-    
+
+    controller_interface = IncludeLaunchDescription(
+        os.path.join(
+            get_package_share_directory("tank_bringup"),  
+            "launch",                                             
+            "delay_controller.launch.py"                                
+        )
+    )
 
 
     return LaunchDescription([
-           turm_control
+           controller_interface
 
 
     ])
