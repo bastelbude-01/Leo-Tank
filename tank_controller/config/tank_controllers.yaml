@@ -30,11 +30,11 @@ turret_controller:
     joints:
       - joint_3
 
-    #command_interfaces:
-    #  - velocity
+    command_interfaces:
+      - velocity
 
-    #state_interfaces:
-    #  - position
+    state_interfaces:
+      - position
       
 
 

@@ -137,7 +137,7 @@ namespace chassis_firmware
                     velocity_states_.at(1) = multiplier * std::stod(res.substr(2, res.size()));
                 }
             }
-            RCLCPP_FATAL_STREAM(rclcpp::get_logger("ChassisInterface"), " Empfange " << message);
+            RCLCPP_INFO_STREAM(rclcpp::get_logger("ChassisInterface"), " Empfange " << message);
         }
         return hardware_interface::return_type::OK;
     }
@@ -173,7 +173,7 @@ namespace chassis_firmware
         try
         {
             arduino_.Write(message_stream.str());
-            RCLCPP_FATAL_STREAM(rclcpp::get_logger("ChassisInterface"), " Sende " << message_stream.str());
+            RCLCPP_INFO_STREAM(rclcpp::get_logger("ChassisInterface"), " Sende " << message_stream.str());
         }
         catch (...)
         {

@@ -85,7 +85,7 @@ namespace turret_firmware
         try
         {
             arduino_.Open(port_);
-            arduino_.SetBaudRate(LibSerial::BaudRate::BAUD_115200);
+            arduino_.SetBaudRate(LibSerial::BaudRate::BAUD_9600);
         }
         catch (...)
         {
@@ -131,7 +131,7 @@ namespace turret_firmware
                 }
                 
             }
-            RCLCPP_FATAL_STREAM(rclcpp::get_logger("TurretInterface"), " Empfange " << message);
+            RCLCPP_INFO_STREAM(rclcpp::get_logger("TurretInterface"), " Empfange " << message);
         }
         return hardware_interface::return_type::OK;
     }
@@ -157,7 +157,7 @@ namespace turret_firmware
         try
         {
             arduino_.Write(message_stream.str());
-            RCLCPP_FATAL_STREAM(rclcpp::get_logger("TurretInterface"), " Sende " << message_stream.str());
+            RCLCPP_INFO_STREAM(rclcpp::get_logger("TurretInterface"), " Sende " << message_stream.str());
         }
         catch (...)
         {
