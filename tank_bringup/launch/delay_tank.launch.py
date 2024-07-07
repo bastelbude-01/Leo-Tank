@@ -51,7 +51,7 @@ def generate_launch_description():
 
     return LaunchDescription([
         controller,
-        #controller_interface,
+        controller_interface,
         TimerAction(period=3.0, actions=[hardware_interface_chassis]),
         TimerAction(period=3.0, actions=[hardware_interface_turret])#,
         #TimerAction(period=3.0, actions=[hardware_interface_pipe])

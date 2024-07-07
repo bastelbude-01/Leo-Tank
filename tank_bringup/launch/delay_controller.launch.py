@@ -8,12 +8,9 @@ from launch_ros.actions import Node
 def generate_launch_description():
 
 
-    controller_interface = IncludeLaunchDescription(
-        os.path.join(
-            get_package_share_directory("tank_bringup"),  
-            "launch",                                             
-            "delay_controller.launch.py"                                
-        )
+    controller_interface = Node(
+        package="tank_controller",
+        executable="turret_controller.py"
     )
 
 
