@@ -33,7 +33,7 @@ def generate_launch_description():
 
     return LaunchDescription([
         joy_node,
-        #joy_turret,
+        joy_turret,
         joy_drive
         
     ])

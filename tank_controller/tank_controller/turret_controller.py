@@ -27,9 +27,7 @@ class TurretController(Node):
         self.turret_cmd_sub_ = self.create_subscription(TwistStamped, "turret_controller/cmd_vel", self.turretCallback, 10)
         self.joint_sub_ = self.create_subscription(JointState, "joint_states", self.jointCallback, 10)
 
-        self.turret_speed_conversion_ = np.array([[self.coil_radius/2, self.coil_radius/2],
-                                           [self.coil_radius/self.coil_seperation, -self.coil_radius/self.coil_seperation]])
-
+        
         self.turret_conversion_ = self.coil_radius / self.coil_seperation
 
         self.coil_point = 0.0
@@ -39,17 +37,17 @@ class TurretController(Node):
         coil_speed = turm_speed[1,0]
 
         if coil_speed >= 0.2:
-            self.coil_point += 0.01
+            self.coil_point += 0.1
             turret_speed = self.turret_conversion_ / self.coil_point
         elif coil_speed <= -0.2:
-            self.coil_point -= 0.01
-            turret_speed = self.turret_conversion_ / self.coil_point
+            self.coil_point -= 0.1
+            turret_speed = self.turret_conversion_ / -self.coil_point
         else:
             turret_speed = 0.0  
 
-        #self.get_logger().info("Coil Speed %f" % coil_speed)
-        #self.get_logger().info("Turret Speed %f" % turret_speed)
-        #self.get_logger().info("Coil Point %f" % self.coil_point)
+        self.get_logger().info("Coil Speed %f" % coil_speed)
+        self.get_logger().info("Turret Speed %f" % turret_speed)
+        self.get_logger().info("Coil Point %f" % self.coil_point)
 
         
         turret_msg = Float64MultiArray()

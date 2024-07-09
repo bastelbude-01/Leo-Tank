@@ -146,6 +146,8 @@
         <origin xyz="0.17 -0.06 0.0" />
     </joint>
 
+
+    
     <transmission name="turret_transmission" >
         <plugin>
             transmission_interface/SimpleTransmission
@@ -155,6 +157,8 @@
             <mechanical_reduction>1.0</mechanical_reduction>
         </joint>
     </transmission>
+
+
 
     <ros2_control type="system" name="Turret_System">
  
