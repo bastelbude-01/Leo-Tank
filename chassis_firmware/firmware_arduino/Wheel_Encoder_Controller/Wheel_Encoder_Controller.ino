@@ -18,10 +18,12 @@ installiere auf dem Raspberry in der Arduino IDE die library PID by Brett Beaure
 #define left_encoder_b 4
 
 unsigned int right_encoder_counter = 0;
+// int right_encoder_counter = 0;
 String right_encoder_sing = "p";
 double right_wheel_meas_vel = 0.0;
 
 unsigned int left_encoder_counter = 0;
+// int left_encoder_counter = 0;
 String left_encoder_sing = "p";
 double left_wheel_meas_vel = 0.0;
 
@@ -170,12 +172,15 @@ void loop()
       }
     }
   }
+
+    
   unsigned long current_millis = millis();
   if(current_millis - last_millis >= interval)
   {
-    right_wheel_meas_vel = (10 * right_encoder_counter * (60 / 473)) * 0.10472; // 385 alter wert bzw für die motoren mit intigrierten encoder
-    left_wheel_meas_vel = (10 * left_encoder_counter * (60 / 473)) * 0.10472;  //  473 aktueller wert für Panzer Getriebe
+    right_wheel_meas_vel = (10 * right_encoder_counter * (60 / 47.3)) * 0.10472; // 385 alter wert bzw für die motoren mit intigrierten encoder
+    left_wheel_meas_vel = (10 * left_encoder_counter * (60 / 47.3)) * 0.10472;  //  47.3 aktueller wert für Panzer Getriebe
 
+    
     rightMotor.Compute();
     leftMotor.Compute();
 
@@ -192,8 +197,7 @@ void loop()
     String encoder_read = "r" + right_encoder_sing + String(right_wheel_meas_vel) 
                         + ",l" + left_encoder_sing + String(left_wheel_meas_vel) + ",";
     Serial.println(encoder_read);
-    Serial.println(right_wheel_meas_vel);
-    Serial.println(left_wheel_meas_vel);
+    
 
     last_millis = current_millis;
     right_encoder_counter = 0;
@@ -208,34 +212,26 @@ void loop()
 
 void rightEncoderCallback()
 {
-  right_encoder_counter++;
-
   if(digitalRead(right_encoder_b) == HIGH)
   {
     right_encoder_sing = "n";
-    right_encoder_counter--;
   }
   else
   {
     right_encoder_sing = "p";
-    right_encoder_counter++;
   }
-  
+  right_encoder_counter++;
 }
 
 void leftEncoderCallback()
 {
-  left_encoder_counter++;
-
   if(digitalRead(left_encoder_b) == HIGH)
   {
     left_encoder_sing = "p";
-    left_encoder_counter++;
   }
   else
   {
     left_encoder_sing = "n";
-    left_encoder_counter--;
   }
-  
+  left_encoder_counter++;
 }
