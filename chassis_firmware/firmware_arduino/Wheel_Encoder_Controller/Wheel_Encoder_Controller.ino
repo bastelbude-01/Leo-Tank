@@ -192,6 +192,8 @@ void loop()
     String encoder_read = "r" + right_encoder_sing + String(right_wheel_meas_vel) 
                         + ",l" + left_encoder_sing + String(left_wheel_meas_vel) + ",";
     Serial.println(encoder_read);
+    Serial.println(right_wheel_meas_vel);
+    Serial.println(left_wheel_meas_vel);
 
     last_millis = current_millis;
     right_encoder_counter = 0;
