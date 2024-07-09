@@ -18,12 +18,10 @@ installiere auf dem Raspberry in der Arduino IDE die library PID by Brett Beaure
 #define left_encoder_b 4
 
 unsigned int right_encoder_counter = 0;
-// int right_encoder_counter = 0;
 String right_encoder_sing = "p";
 double right_wheel_meas_vel = 0.0;
 
 unsigned int left_encoder_counter = 0;
-// int left_encoder_counter = 0;
 String left_encoder_sing = "p";
 double left_wheel_meas_vel = 0.0;
 
@@ -47,15 +45,15 @@ const unsigned long interval = 100;
 double right_wheel_cmd = 0.0;
 double left_wheel_cmd = 0.0;
 
-// PID Werte müssen für Jeden Motor individuel ermittelt werden
-// AKTUELLE BEISPIELWERTE !!!!
-double Kp_r = 11.5;
-double Ki_r = 7.5;
-double Kd_r = 0.1;
+// PID Werte müssen eventuell für Jeden Motor individuel ermittelt werden
 
-double Kp_l = 12.8;
-double Ki_l = 8.3;
-double Kd_l = 0.1;
+double Kp_r = 7.8;  
+double Ki_r = 5.8;  
+double Kd_r = 0.4;  
+
+double Kp_l = 7.8;  
+double Ki_l = 5.8;  
+double Kd_l = 0.4;  
 
 PID rightMotor(&right_wheel_meas_vel, &right_wheel_cmd, &right_wheel_cmd_vel,
                Kp_r, Ki_r, Kd_r, DIRECT);
@@ -177,8 +175,8 @@ void loop()
   unsigned long current_millis = millis();
   if(current_millis - last_millis >= interval)
   {
-    right_wheel_meas_vel = (10 * right_encoder_counter * (60 / 47.3)) * 0.10472; // 385 alter wert bzw für die motoren mit intigrierten encoder
-    left_wheel_meas_vel = (10 * left_encoder_counter * (60 / 47.3)) * 0.10472;  //  47.3 aktueller wert für Panzer Getriebe
+    right_wheel_meas_vel = (3 * right_encoder_counter * (60 / 47.3)) * 0.10472; // 385 alter wert bzw für die motoren mit intigrierten encoder
+    left_wheel_meas_vel = (3 * left_encoder_counter * (60 / 47.3)) * 0.10472;  //  47.3 aktueller wert für Panzer Getriebe
 
     
     rightMotor.Compute();
