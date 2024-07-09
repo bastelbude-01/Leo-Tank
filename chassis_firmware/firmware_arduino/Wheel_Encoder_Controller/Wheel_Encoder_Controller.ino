@@ -210,12 +210,14 @@ void rightEncoderCallback()
   if (digitalRead(right_encoder_b) == HIGH)
   {
     right_encoder_sing = "n";
+    right_encoder_counter--;
   }
   else
   {
     right_encoder_sing = "p";
+    right_encoder_counter++;
   }
-  right_encoder_counter++;
+  
 }
 
 void leftEncoderCallback()
@@ -224,10 +226,12 @@ void leftEncoderCallback()
   if (digitalRead(left_encoder_b) == HIGH)
   {
     left_encoder_sing = "p";
+    left_encoder_counter++;
   }
   else
   {
     left_encoder_sing = "n";
+    left_encoder_counter--;
   }
-  left_encoder_counter++;
+  
 }
