@@ -141,4 +141,34 @@
         </joint>
     </transmission>
 
+    <!-- 
+    <ros2_control type="system" name="Pipe_System">
+ 
+        <xacro:if value="$(arg is_sim)">
+            <hardware>
+                <plugin>gazebo_ros2_control/GazeboSystem</plugin>
+            </hardware> 
+        </xacro:if>
+
+        <xacro:unless value="$(arg is_sim)">
+            <hardware>
+                <plugin>pipe_firmware/PipeInterface</plugin>
+                <param name="port">/dev/ttyUSB2</param>
+            </hardware>
+        </xacro:unless>
+
+
+        <joint name="joint_4">
+            <command_interface name="velocity">
+                <parma name="min">-1</parma>
+                <parma name="max">1</parma>
+            </command_interface>
+            <state_interface name="position" />
+            <state_interface name="velocity" />
+        </joint>
+        
+
+    </ros2_control> 
+-->
+
 </robot>
