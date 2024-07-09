@@ -54,7 +54,7 @@ void setup()
 
   turretMotor.SetMode(AUTOMATIC);
 
-  Serial.begin(9600);
+  Serial.begin(57600);
 }
 
 void loop()
@@ -117,8 +117,8 @@ void loop()
   }
   unsigned long current_millis = millis();
   if(current_millis - last_millis >= interval)
-  {
-    turret_wheel_meas_vel = (10 * turret_encoder_counter * (60 / 516000)) * 0.10472;
+  {                      // 10 *                             5160000
+    turret_wheel_meas_vel = (10 * turret_encoder_counter * (60 / 51.6)) * 0.10472;
 
     turretMotor.Compute();
 

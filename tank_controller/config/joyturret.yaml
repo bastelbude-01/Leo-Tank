@@ -4,7 +4,6 @@ joy_teleop_:
       type: topic
       interface_type: geometry_msgs/msg/TwistStamped
       topic_name: turret_controller/cmd_vel
-      #topic_name: turm_controller/cmd_vel
 
       deadman_buttons: [5]
 

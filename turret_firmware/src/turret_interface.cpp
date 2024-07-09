@@ -85,7 +85,7 @@ namespace turret_firmware
         try
         {
             arduino_.Open(port_);
-            arduino_.SetBaudRate(LibSerial::BaudRate::BAUD_9600);
+            arduino_.SetBaudRate(LibSerial::BaudRate::BAUD_57600);
         }
         catch (...)
         {
