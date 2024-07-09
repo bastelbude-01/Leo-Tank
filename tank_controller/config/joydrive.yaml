@@ -3,7 +3,6 @@ joy_teleop:
     move: 
       type: topic
       interface_type: geometry_msgs/msg/TwistStamped
-      #topic_name: tank_controller/cmd_vel
       topic_name: chassis_controller/cmd_vel
 
       deadman_buttons: [5]
@@ -15,5 +14,5 @@ joy_teleop:
           offset: 0.0
         twist-angular-z:
           axis: 0
-          scale: 1.0
+          scale: 1.5
           offset: 0.0
