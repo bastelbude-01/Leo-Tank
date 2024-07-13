@@ -23,11 +23,15 @@
 #define PIN_NEO_PIXEL 16  // GPIO Pin am Esp
 #define NUM_PIXELS 12   // anzahl der Neopixel Leds
 
+#define LASER_PIN 23
+
 Adafruit_NeoPixel NeoPixel(NUM_PIXELS, PIN_NEO_PIXEL, NEO_GRB + NEO_KHZ800);
 Adafruit_MPU6050 mpu;
 
 Servo servo_pipe;
 const int servoPin1 = 19;
+
+
 
 int goal;
 int servo_position;
@@ -35,7 +39,10 @@ int8_t angle;
 int pitchAngle;
 
 rcl_subscription_t Neo_sub;
-std_msgs__msg__UInt8MultiArray NEO_msg;
+std_msgs__msg__UInt8MultiArray neo_msg;
+
+rcl_subscription_t laser_sub;
+std_msgs__msg__Int8 laser_msg;
 
 rcl_subscription_t servo_pipe_subscriber;
 std_msgs__msg__Int8 servo_pipe_msg;
@@ -138,6 +145,19 @@ void servo_pipe_callback(const void* msgin) {
   reach_goal(servo_pipe, angle);
 }
 
+void laser_callback(const void* msgin) {
+  const std_msgs__msg__Int8* msg = (const std_msgs__msg__Int8*)msgin;
+  int8_t laser_on = msg->data;
+
+  if(laser_on == 1 ){
+    digitalWrite(LASER_PIN, HIGH);
+  }
+  else {
+    digitalWrite(LASER_PIN, LOW);
+  }
+  
+}
+
 void setup() {  
   
   if (!mpu.begin())
@@ -157,6 +177,8 @@ void setup() {
   servo_pipe.attach(servoPin1, 1000, 2000);  // 1000-2000 usec = 135° +/- 3° attaches the servo on pin 18 to the servo object
   servo_pipe.write(90);
   NeoPixel.begin();
+  pinMode(LASER_PIN, OUTPUT);
+  digitalWrite(LASER_PIN, LOW);
   delay(2000);
   allocator = rcl_get_default_allocator();
 
@@ -186,7 +208,7 @@ void setup() {
     &Neo_sub,
     &node,
     ROSIDL_GET_MSG_TYPE_SUPPORT(std_msgs, msg, UInt8MultiArray),
-    "/NEO_msg"));
+    "/neo_msg"));
 
   //servo_pipe subscriber
   RCCHECK(rclc_subscription_init_default(
@@ -195,26 +217,33 @@ void setup() {
     ROSIDL_GET_MSG_TYPE_SUPPORT(std_msgs, msg, Int8),
     "/servo_pipe"));
 
-  NEO_msg.data.capacity = 3;
-  NEO_msg.data.size = 0;
-  NEO_msg.data.data = (u_int8_t*)malloc(NEO_msg.data.capacity * sizeof(u_int8_t));
+  RCCHECK(rclc_subscription_init_default(
+    &laser_subscriber,
+    &node,
+    ROSIDL_GET_MSG_TYPE_SUPPORT(std_msgs, msg, Int8),
+    "/_laser"));
 
-  NEO_msg.layout.dim.capacity = 3;
-  NEO_msg.layout.dim.size = 0;
-  NEO_msg.layout.dim.data = (std_msgs__msg__MultiArrayDimension*)malloc(NEO_msg.layout.dim.capacity * sizeof(std_msgs__msg__MultiArrayDimension));
+  neo_msg.data.capacity = 3;
+  neo_msg.data.size = 0;
+  neo_msg.data.data = (u_int8_t*)malloc(neo_msg.data.capacity * sizeof(u_int8_t));
 
-  for (size_t i = 0; i < NEO_msg.layout.dim.capacity; i++) {
-    NEO_msg.layout.dim.data[i].label.capacity = 3;
-    NEO_msg.layout.dim.data[i].label.size = 0;
-    NEO_msg.layout.dim.data[i].label.data = (char*)malloc(NEO_msg.layout.dim.data[i].label.capacity * sizeof(char));
+  neo_msg.layout.dim.capacity = 3;
+  neo_msg.layout.dim.size = 0;
+  neo_msg.layout.dim.data = (std_msgs__msg__MultiArrayDimension*)malloc(neo_msg.layout.dim.capacity * sizeof(std_msgs__msg__MultiArrayDimension));
+
+  for (size_t i = 0; i < neo_msg.layout.dim.capacity; i++) {
+    neo_msg.layout.dim.data[i].label.capacity = 3;
+    neo_msg.layout.dim.data[i].label.size = 0;
+    neo_msg.layout.dim.data[i].label.data = (char*)malloc(neo_msg.layout.dim.data[i].label.capacity * sizeof(char));
   }
 
 
 
   // create executor
-  RCCHECK(rclc_executor_init(&executor, &support.context, 3, &allocator));
-  RCCHECK(rclc_executor_add_subscription(&executor, &Neo_sub, &NEO_msg, &TankMsgCallback, ON_NEW_DATA));
+  RCCHECK(rclc_executor_init(&executor, &support.context, 4, &allocator));
+  RCCHECK(rclc_executor_add_subscription(&executor, &Neo_sub, &neo_msg, &TankMsgCallback, ON_NEW_DATA));
   RCCHECK(rclc_executor_add_subscription(&executor, &servo_pipe_subscriber, &servo_pipe_msg, &servo_pipe_callback, ON_NEW_DATA));
+  RCCHECK(rclc_executor_add_subscription(&executor, &laser_subscriber, &laser_msg, &laser_callback, ON_NEW_DATA));
   RCCHECK(rclc_executor_add_timer(&executor, &timer));
 }
 
