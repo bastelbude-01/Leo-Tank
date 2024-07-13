@@ -41,7 +41,7 @@ int pitchAngle;
 rcl_subscription_t Neo_sub;
 std_msgs__msg__UInt8MultiArray neo_msg;
 
-rcl_subscription_t laser_sub;
+rcl_subscription_t laser_subscriber;
 std_msgs__msg__Int8 laser_msg;
 
 rcl_subscription_t servo_pipe_subscriber;
