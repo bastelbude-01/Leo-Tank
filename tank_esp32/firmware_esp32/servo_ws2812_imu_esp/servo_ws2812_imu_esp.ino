@@ -1,16 +1,22 @@
 #include <micro_ros_arduino.h>
+
 #include <Adafruit_MPU6050.h>
 #include <Adafruit_Sensor.h>
 #include <Wire.h>
+
 #include <ESP32Servo.h>
+
 #include <Adafruit_NeoPixel.h>
+
 #include <stdio.h>
 #include <rcl/rcl.h>
 #include <rcl/error_handling.h>
 #include <rclc/rclc.h>
 #include <rclc/executor.h>
+
 #include <std_msgs/msg/int8.h>
 #include <std_msgs/msg/u_int8_multi_array.h>
+#include <std_msgs/msg/int32.h>
 #include <std_msgs/msg/multi_array_dimension.h>
 
 
@@ -34,6 +40,8 @@ std_msgs__msg__UInt8MultiArray NEO_msg;
 rcl_subscription_t servo_pipe_subscriber;
 std_msgs__msg__Int8 servo_pipe_msg;
 
+rcl_publisher_t imu_publisher;
+std_msgs__msg__Int32 msg;
 
 rclc_executor_t executor;
 rclc_support_t support;
@@ -69,14 +77,9 @@ int limitToMaxValue(int value, int maxLimit) {
 }
 
 void reach_goal(Servo& motor, int goal) {
+
   goal = limitToMaxValue(goal, 180);  
-/*
-  sensors_event_t a, g, temp;  
-  mpu.getEvent(&a, &g, &temp);
-  float pitch = -a.acceleration.x;
-  int pitchAngle = map(pitch, -90, 90, 0, 180);
-  goal = goal + pitchAngle;
-*/
+
   if (goal >= motor.read()) {
     for (int pos = motor.read(); pos <= goal; pos++) {
       motor.write(pos);
@@ -106,9 +109,26 @@ void TankMsgCallback(const void* msgin) {
   NeoPixel.fill(NeoPixel.Color(red, green, blue)); 
   NeoPixel.show();
   NeoPixel.clear();
-  // NeoPixel.show();
 
   
+}
+
+void imu_callback(rcl_timer_t * timer, int64_t last_call_time)
+{  
+  sensors_event_t a, g, temp;
+  mpu.getEvent(&a, &g, &temp);
+
+  float pitch = -a.acceleration.x*10; 
+  float yaw = g.gyro.z;    // Invert or scale if needed
+
+  // Map the pitch and yaw values to servo angles
+  int pitchAngle = map(pitch, -90, 90, 0, 135);
+  int yawAngle = map(yaw, -90, 90, 0, 180);
+  RCLC_UNUSED(last_call_time);
+  if (timer != NULL) {
+    RCSOFTCHECK(rcl_publish(&imu_publisher, &msg, NULL));
+    msg.data = pitchAngle;
+  }
 }
 
 
@@ -118,8 +138,7 @@ void servo_pipe_callback(const void* msgin) {
   reach_goal(servo_pipe, angle);
 }
 
-void setup() {
-  set_microros_transports();
+void setup() {  
   
   if (!mpu.begin())
   {    
@@ -127,6 +146,7 @@ void setup() {
     {
     }
   }
+  set_microros_transports();
 
   // Allow allocation of all timers
   ESP32PWM::allocateTimer(0);
@@ -144,7 +164,22 @@ void setup() {
   RCCHECK(rclc_support_init(&support, 0, NULL, &allocator));
 
   // create node
-  RCCHECK(rclc_node_init_default(&node, "servo_esp", "", &support));
+  RCCHECK(rclc_node_init_default(&node, "tank_esp", "", &support));
+
+  // create publisher
+  RCCHECK(rclc_publisher_init_default(
+    &imu_publisher,
+    &node,
+    ROSIDL_GET_MSG_TYPE_SUPPORT(std_msgs, msg, Int32),
+    "imu_publisher"));
+
+  // create timer
+  const unsigned int timer_timeout = 1000;
+  RCCHECK(rclc_timer_init_default(
+    &timer,
+    &support,
+    RCL_MS_TO_NS(timer_timeout),
+    imu_callback));
 
   // Fix Position subscriber
   RCCHECK(rclc_subscription_init_default(
@@ -177,9 +212,10 @@ void setup() {
 
 
   // create executor
-  RCCHECK(rclc_executor_init(&executor, &support.context, 2, &allocator));
+  RCCHECK(rclc_executor_init(&executor, &support.context, 3, &allocator));
   RCCHECK(rclc_executor_add_subscription(&executor, &Neo_sub, &NEO_msg, &TankMsgCallback, ON_NEW_DATA));
   RCCHECK(rclc_executor_add_subscription(&executor, &servo_pipe_subscriber, &servo_pipe_msg, &servo_pipe_callback, ON_NEW_DATA));
+  RCCHECK(rclc_executor_add_timer(&executor, &timer));
 }
 
 void loop() {  
