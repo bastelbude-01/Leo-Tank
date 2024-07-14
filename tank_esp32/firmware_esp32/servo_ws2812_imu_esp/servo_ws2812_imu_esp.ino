@@ -115,7 +115,7 @@ void TankMsgCallback(const void* msgin) {
   NeoPixel.clear();
   NeoPixel.fill(NeoPixel.Color(red, green, blue)); 
   NeoPixel.show();
-  NeoPixel.clear();
+  NeoPixel.clear();  
 
   
 }
@@ -154,7 +154,7 @@ void laser_callback(const void* msgin) {
   }
   else {
     digitalWrite(LASER_PIN, LOW);
-  }
+  }  
   
 }
 
@@ -166,7 +166,7 @@ void setup() {
     {
     }
   }
-  set_microros_transports();
+  set_microros_transports();  
 
   // Allow allocation of all timers
   ESP32PWM::allocateTimer(0);
