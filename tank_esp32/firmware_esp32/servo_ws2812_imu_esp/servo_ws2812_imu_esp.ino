@@ -25,13 +25,15 @@
 
 #define LASER_PIN 23
 
+#define M_EN 18
+#define M_A 5
+#define M_B 17
+
 Adafruit_NeoPixel NeoPixel(NUM_PIXELS, PIN_NEO_PIXEL, NEO_GRB + NEO_KHZ800);
 Adafruit_MPU6050 mpu;
 
 Servo servo_pipe;
 const int servoPin1 = 19;
-
-
 
 int goal;
 int servo_position;
@@ -152,8 +154,17 @@ void laser_callback(const void* msgin) {
   if(laser_on == 1 ){
     digitalWrite(LASER_PIN, HIGH);
   }
+  if (laser_on == 2){
+    digitalWrite(LASER_PIN, HIGH);
+    digitalWrite(M_EN, HIGH);
+    delay(300);
+    digitalWrite(LASER_PIN, HIGH);
+    digitalWrite(M_EN, LOW);
+
+  }
   else {
     digitalWrite(LASER_PIN, LOW);
+    digitalWrite(M_EN, LOW);
   }  
   
 }
@@ -178,7 +189,13 @@ void setup() {
   servo_pipe.write(90);
   NeoPixel.begin();
   pinMode(LASER_PIN, OUTPUT);
+  pinMode(M_EN, OUTPUT);
+  pinMode(M_A, OUTPUT);
+  pinMode(M_B, OUTPUT);
   digitalWrite(LASER_PIN, LOW);
+  digitalWrite(M_EN, LOW);
+  digitalWrite(M_A, HIGH);
+  digitalWrite(M_B, LOW);
   delay(2000);
   allocator = rcl_get_default_allocator();
 
