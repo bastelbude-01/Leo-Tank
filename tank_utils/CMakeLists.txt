@@ -20,7 +20,7 @@ install(
 )
 
 install(PROGRAMS
-  #${PROJECT_NAME}/XXXX.py
+  ${PROJECT_NAME}/sound_subscriber.py
   #${PROJECT_NAME}/YYYY.py
   DESTINATION lib/${PROJECT_NAME}
 )
